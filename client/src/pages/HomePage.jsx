@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
@@ -21,6 +22,7 @@ const HomePage = () => {
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
+  const [showChat, setShowChat] = useState(false);
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
 
   // Define your four sentences here.
@@ -546,6 +548,22 @@ ReactDOM.render(
           </div>
         </div>
       </section>
+      <div className="relative">
+      {/* Button to open chatbot */}
+      <button
+        onClick={() => setShowChat(!showChat)}
+        className="fixed bottom-5 right-5 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
+      >
+        {showChat ? "Close Chat" : "Open Chat"}
+      </button>
+
+      {/* Chatbot pop-up */}
+      {showChat && (
+        <div className="fixed bottom-16 right-5 bg-white p-4 shadow-lg rounded-lg w-80 h-96">
+          <Chatbot />
+        </div>
+      )}
+    </div>
     </div>
   );
 };
