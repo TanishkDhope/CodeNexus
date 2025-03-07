@@ -32,7 +32,6 @@ import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 import Animation from './pages/Checking/Animation'
-import ProgressTracker from './pages/Progress'
 import AddQuiz from './pages/AddQuiz'
 
 // import Animation from './pages/Checking/Animation'
