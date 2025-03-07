@@ -20,6 +20,10 @@ import CommunityPage from './pages/CommunityPage';
 import Footer from './components/Footer';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Leaderboard from './pages/Leaderboard/Leaderboard';
+import UserProfile from './pages/UserProfile/UserProfile';
+import RoadmapHome from './pages/Roadmap/RoadmapHome';
+import RoadmapsDetail from './pages/Roadmap/RoadmapsDetails'; // Import the RoadmapsDetail component
 
 function App() {
   useEffect(() => {
