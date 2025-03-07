@@ -61,7 +61,7 @@ function App() {
           
           {/* Added dynamic route for RoadmapsDetail */}          
           <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />
-          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/Courses" element={<CoursesPage />} />
         </Routes>
         <Footer />
       </div>

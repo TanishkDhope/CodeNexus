@@ -22,26 +22,26 @@ const HomePage = () => {
       ),
     },
     {
-      badge: "C/C++ Programming",
+      badge: "Web-Sockets",
       header: (
         <>
-          Master <span className="gradient-text">C/C++</span> Programming
+          Learn <span className="gradient-text">Web-Sockets</span> End-to-End
         </>
       ),
     },
     {
-      badge: "Python Programming",
+      badge: "Django",
       header: (
         <>
-          Master <span className="gradient-text">Python</span> Programming
+          Master <span className="gradient-text">Django</span> Programming
         </>
       ),
     },
     {
-      badge: "Java Programming",
+      badge: "Pratice Makes the Man Perfect",
       header: (
         <>
-          Master <span className="gradient-text">Java</span> Programming
+          Practice Your <span className="gradient-text">Coding</span> Skills
         </>
       ),
     },
