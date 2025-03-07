@@ -16,6 +16,8 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { Test } from './pages/test';
 import Editor from './pages/Editor';
+import ProgressTracker from "./pages/Progress";
+import ResumeBuilder from "./pages/Resume"; 
 // import AboutPage from './pages/AboutPage';
 // import MentorshipPage from './pages/MentorshipPage';
 // import SeminarsPage from './pages/SeminarsPage';
@@ -29,7 +31,6 @@ import RoadmapHome from './pages/Roadmap/RoadmapHome';
 import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
-
 import Animation from './pages/Checking/Animation'
 import Course from './pages/Course'
 
@@ -79,7 +80,7 @@ function App() {
           <Route path="/Roadmaps" element={<RoadmapHome />} />
           <Route path="/Mentorship" element={<MentorshipPage />} />
           <Route path="/Animation" element={<Animation />} />
-          
+          <Route path="/resume" element={<ResumeBuilder />} />
           {/* Added dynamic route for RoadmapsDetail */}          
           <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />
           <Route path="/courses" element={<CoursesPage />} />
