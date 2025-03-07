@@ -29,6 +29,7 @@ import RoadmapHome from './pages/Roadmap/RoadmapHome';
 import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
+import ProgressTracker from './pages/Progress'
 
 // import Animation from './pages/Checking/Animation'
 import Course from './pages/Course'

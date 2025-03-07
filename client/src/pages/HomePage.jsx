@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Code, BookOpen, Users, Award, Zap, MessageSquare, Lightbulb, Calendar } from 'lucide-react';
-=======
-
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
@@ -22,15 +14,12 @@ import {
   Lightbulb,
   Calendar,
 } from "lucide-react";
->>>>>>> 4fac4ff5571f6cf69c1b431617072f39954874cb
 
 const HomePage = () => {
   const heroRef = useRef(null);
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
-<<<<<<< HEAD
-=======
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
 
   // Define your four sentences here.
@@ -95,7 +84,6 @@ const HomePage = () => {
   //   checkUserRole();
   // }, []);
 
->>>>>>> 4fac4ff5571f6cf69c1b431617072f39954874cb
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -158,13 +146,8 @@ const HomePage = () => {
     );
 
     // Animated background code effect
-<<<<<<< HEAD
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
-=======
-    const canvas = document.getElementById("matrix-canvas");
-    const ctx = canvas.getContext("2d");
->>>>>>> 4fac4ff5571f6cf69c1b431617072f39954874cb
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -229,12 +212,9 @@ const HomePage = () => {
             <div className="inline-block bg-green-500/20 px-4 py-1 rounded-full text-green-400 text-sm font-medium">
               Full Stack Development LMS
             </div>
-<<<<<<< HEAD
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               Master <span className="gradient-text">Full Stack</span> Development
             </h1>
-=======
->>>>>>> 4fac4ff5571f6cf69c1b431617072f39954874cb
             <p className="text-gray-300 text-lg md:text-xl max-w-lg">
               Bridge the gap between theory and practice with our hands-on
               learning platform designed for aspiring developers.
