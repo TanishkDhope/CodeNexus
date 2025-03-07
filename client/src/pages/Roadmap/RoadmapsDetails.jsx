@@ -56,26 +56,26 @@ const roadmaps = [
       },
     ],
     subtopics: {
-      html_css: [
+      HTML_CSS: [
         "HTML5 elements",
         "CSS3 Flexbox",
         "CSS Grid",
         "Responsive Layouts",
       ],
-      js: [
+      Javascript: [
         "JavaScript syntax",
         "DOM manipulation",
         "ES6 features",
         "Asynchronous JavaScript (Promises, async/await)",
       ],
-      react: [
+      React: [
         "React components",
         "React state management",
         "Hooks (useState, useEffect)",
         "React Router",
         "React Testing Library",
       ],
-      performance: ["Lazy loading", "Code splitting", "Web Vitals"],
+      Performance: ["Lazy loading", "Code splitting", "Web Vitals"],
     },
   },
   
@@ -354,7 +354,7 @@ const RoadmapsDetail = () => {
 
         {/* Resources Section */}
         <section className="resources-section">
-          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 mb-6 text-center neon-glow">
+          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 mb-6 text-center neon-glow">
             Resources
           </h3>
           <ul className="list-disc pl-5 space-y-2 text-lg text-gray-300">
