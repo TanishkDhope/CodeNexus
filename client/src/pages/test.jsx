@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function Test() {
+export function Test() {
 
   const navigate=useNavigate()
   const [role, setRole] = useState(null);
@@ -20,9 +20,10 @@ function Test() {
         //   // Redirect unauthorized users
         //   return;
         // }
-  
+        console.log(res.data.role)
         setRole(res.data.role);
       } catch (error) {
+        console.log(error)
         alert(error.response?.data?.message || "Access denied!");
         navigate("/login"); // Redirect if token is missing/invalid
       }

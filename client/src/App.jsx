@@ -6,6 +6,12 @@ import QuizPage from './pages/QuizPage';
 import RecruitmentPage from './pages/RecruitmentPage';
 import HackathonPage from './pages/HackathonPage';
 import CommunityPage from './pages/CommunityPage';
+import Excercises from './pages/Excercises';
+import AccessDenied from './pages/AccessDenied';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import { Test } from './pages/test';
+import Editor from './pages/Editor';
 // import AboutPage from './pages/AboutPage';
 // import MentorshipPage from './pages/MentorshipPage';
 // import SeminarsPage from './pages/SeminarsPage';
@@ -44,6 +50,12 @@ function App() {
           <Route path="/recruitment" element={<RecruitmentPage />} />
           <Route path="/hackathons" element={<HackathonPage />} />
           <Route path="/community" element={<CommunityPage />} />
+          <Route path='/ex' element={<Excercises />} />
+          <Route path='/ad' element={<AccessDenied />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/test' element={<Test/>}/>
+          <Route  path='/editor' element={<Editor/>}/>
           {/* <Route path="/about" element={<AboutPage />} />
           <Route path="/mentorship" element={<MentorshipPage />} />
           <Route path="/seminars" element={<SeminarsPage />} /> */}

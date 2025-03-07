@@ -26,7 +26,6 @@ let users = [];
 // Set up real-time listener
 onSnapshot(collection(db, "users"), (snapshot) => {
     users = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    console.log("🔥 Updated Users:", users);
 });
 
 export { users };
