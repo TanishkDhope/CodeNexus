@@ -13,6 +13,9 @@ import {
   Filter,
   Tag
 } from 'lucide-react';
+import img1 from '../assets/Hackathons/img1.jpeg';
+import img2 from '../assets/Hackathons/img2.jpeg';
+import img3 from '../assets/Hackathons/img3.jpeg';
 
 const HackathonPage = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
@@ -30,7 +33,7 @@ const HackathonPage = () => {
         location: "Virtual",
         participants: 500,
         prize: "$10,000",
-        image: "/placeholder.svg?height=200&width=400",
+        image: img1,
         tags: ["AI", "Machine Learning", "Data Science"],
         description:
           "Build innovative AI solutions to solve real-world problems. This hackathon focuses on creating practical applications using machine learning and data science."
@@ -43,7 +46,7 @@ const HackathonPage = () => {
         location: "San Francisco, CA",
         participants: 300,
         prize: "$15,000",
-        image: "/placeholder.svg?height=200&width=400",
+        image: img2,
         tags: ["Blockchain", "Smart Contracts", "DeFi"],
         description:
           "Develop decentralized applications on blockchain technology. This hackathon is perfect for developers interested in Web3, DeFi, and smart contracts."
@@ -56,7 +59,7 @@ const HackathonPage = () => {
         location: "Virtual",
         participants: 400,
         prize: "$8,000",
-        image: "/placeholder.svg?height=200&width=400",
+        image: img3,
         tags: ["Mobile", "React Native", "Flutter"],
         description:
           "Create innovative mobile applications that solve everyday problems. This hackathon is open to all mobile development frameworks."
@@ -125,6 +128,8 @@ const HackathonPage = () => {
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, delay: 0.5, ease: 'power2.out' }
     );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
@@ -276,56 +281,6 @@ const HackathonPage = () => {
               </p>
             </div>
           )}
-        </div>
-
-        {/* Host Your Own Hackathon Section */}
-        <div className="mt-16 max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-8 border border-gray-700">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Host Your Own Hackathon</h2>
-              <p className="text-gray-300 mb-6">
-                Looking to organize a hackathon for your company, school, or community? We can help you set up and manage your event from start to finish.
-              </p>
-              <button className="btn-primary" onClick={() => setHostFormOpen(true)}>
-                Get Started
-              </button>
-            </div>
-            <div className="bg-gray-900 p-6 rounded-lg border border-gray-700">
-              <h3 className="text-xl font-bold mb-4">Our Services Include:</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center">
-                    <span className="text-green-500 text-xs">✓</span>
-                  </div>
-                  <span className="text-gray-300">Event planning and management</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center">
-                    <span className="text-green-500 text-xs">✓</span>
-                  </div>
-                  <span className="text-gray-300">Participant registration and team formation</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center">
-                    <span className="text-green-500 text-xs">✓</span>
-                  </div>
-                  <span className="text-gray-300">Judging and evaluation platform</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center">
-                    <span className="text-green-500 text-xs">✓</span>
-                  </div>
-                  <span className="text-gray-300">Mentorship and technical support</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="mr-2 mt-1 w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center">
-                    <span className="text-green-500 text-xs">✓</span>
-                  </div>
-                  <span className="text-gray-300">Prize distribution and follow-up</span>
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
       </div>
 

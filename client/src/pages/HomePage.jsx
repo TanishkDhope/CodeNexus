@@ -1,16 +1,27 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CodeEditorButton from "../components/codeEditorButton";
+import ExercisesButton from "../components/ExercisesButton";
 import axios from "axios";
-import { Code, BookOpen, Users, Award, Zap, MessageSquare, Lightbulb, Calendar } from 'lucide-react';
+import {
+  Code,
+  BookOpen,
+  Users,
+  Award,
+  Zap,
+  MessageSquare,
+  Lightbulb,
+  Calendar,
+} from "lucide-react";
 
 const HomePage = () => {
   const heroRef = useRef(null);
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
+  const [showChat, setShowChat] = useState(false);
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
 
   // Define your four sentences here.
@@ -48,6 +59,33 @@ const HomePage = () => {
       ),
     },
   ];
+  const navigate=useNavigate();
+  const [role,setRole]=useState(null);
+  // useEffect(() => {
+  //   const checkUserRole = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:8000/check-role", {
+  //         withCredentials: true, // Sends cookies with request
+  //       });
+  
+  //       if (res.data.role !== "admin") {
+  //         console.log(res.data.role)
+  //         alert("Access denied! Admins only.");
+  //         navigate("/ad")// Redirect unauthorized users
+  //         return;
+  //       }
+  //       console.log(res.data.role)
+  //       setRole(res.data.role);
+  //     } catch (error) {
+  //       console.log(error)
+  //       alert(error.response?.data?.message || "Access denied!");
+  //       navigate("/login"); // Redirect if token is missing/invalid
+  //     }
+  //   };
+  
+  //   checkUserRole();
+  // }, []);
+
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -109,7 +147,9 @@ const HomePage = () => {
       }
     );
 
-    // Animated background code effect (Matrix effect)
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // Animated background code effect
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -156,6 +196,7 @@ const HomePage = () => {
       clearInterval(matrixInterval);
       clearInterval(sentenceInterval);
     };
+
   }, [sentences.length]);
 
   return (
@@ -166,6 +207,8 @@ const HomePage = () => {
       ></canvas>
       <CodeEditorButton />
 
+      <ExercisesButton />
+
       {/* Hero Section */}
       <section
         ref={heroRef}
@@ -173,25 +216,12 @@ const HomePage = () => {
       >
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
           <div className="hero-content space-y-6 z-10">
-            {/* Toggling Text Container */}
-            <div className="relative min-h-[150px]">
-              {sentences.map((item, index) => (
-                <div
-                  key={index}
-                  className={`absolute transition-opacity duration-1000 ${
-                    index === currentSentenceIndex ? 'opacity-100' : 'opacity-0'
-                  }`}
-                >
-                  <div className="inline-block bg-green-500/20 px-4 py-1 rounded-full text-green-400 text-sm font-medium">
-                    {item.badge}
-                  </div>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                    {item.header}
-                  </h1>
-                </div>
-              ))}
+            <div className="inline-block bg-green-500/20 px-4 py-1 rounded-full text-green-400 text-sm font-medium">
+              Full Stack Development LMS
             </div>
-
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              Master <span className="gradient-text">Full Stack</span> Development
+            </h1>
             <p className="text-gray-300 text-lg md:text-xl max-w-lg">
               Bridge the gap between theory and practice with our hands-on
               learning platform designed for aspiring developers.
@@ -517,6 +547,22 @@ ReactDOM.render(
           </div>
         </div>
       </section>
+      {/* <div className="relative">
+      Button to open chatbot
+      <button
+        onClick={() => setShowChat(!showChat)}
+        className="fixed bottom-5 right-5 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
+      >
+        {showChat ? "Close Chat" : "Open Chat"}
+      </button>
+
+      Chatbot pop-up
+      {showChat && (
+        <div className="fixed bottom-16 right-5 bg-white p-4 shadow-lg rounded-lg w-80 h-96">
+          <Chatbot />
+        </div>
+      )}
+    </div> */}
     </div>
   );
 };

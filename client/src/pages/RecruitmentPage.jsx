@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { Briefcase, Search, MapPin, Building, Clock, Filter, ChevronDown, Star, Bookmark, BookmarkCheck } from 'lucide-react';
-
+import { useNavigate } from "react-router-dom";
 const RecruitmentPage = () => {
   const [activeTab, setActiveTab] = useState('jobs');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterOpen, setFilterOpen] = useState(false);
   const [savedJobs, setSavedJobs] = useState([]);
+  const navigate = useNavigate();
 
   // Sample job data
   const jobs = [
@@ -92,6 +93,8 @@ const RecruitmentPage = () => {
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, delay: 0.5, ease: 'power2.out' }
     );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const toggleSaveJob = (jobId) => {
@@ -345,7 +348,12 @@ const RecruitmentPage = () => {
                 Upload your resume to make it easier to apply for jobs and get discovered by recruiters.
               </p>
               <button className="btn-secondary">Upload Resume</button>
-              <button className="btn-secondary ml-3">Build Resume</button>
+              <button
+      className="btn-secondary ml-3"
+      onClick={() => navigate("/resume")}
+    >
+      Build Resume
+    </button>
             </div>
             <div className="card">
               <h3 className="text-xl font-bold mb-4">Create Your Profile</h3>

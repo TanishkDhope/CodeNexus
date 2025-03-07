@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { Clock, CheckCircle, XCircle, ArrowRight, Award, Code, RefreshCw } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const QuizPage = () => {
   const [activeTab, setActiveTab] = useState('daily');
@@ -106,6 +107,8 @@ const QuizPage = () => {
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, delay: 0.5, ease: 'power2.out' }
     );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
@@ -364,9 +367,12 @@ const QuizPage = () => {
               <p className="text-gray-400 text-sm mb-4">
                 Practice with unlimited quizzes on specific topics to strengthen your skills.
               </p>
-              <button className="text-green-500 text-sm font-medium hover:text-green-400 transition-colors">
-                Start Practice →
-              </button>
+              <Link to = '/exercises'>
+                <button className="text-green-500 text-sm font-medium hover:text-green-400 transition-colors">
+                  Start Practice →
+                </button>
+              </Link>
+              
             </div>
 
             <div className="card">
@@ -379,9 +385,12 @@ const QuizPage = () => {
               <p className="text-gray-400 text-sm mb-4">
                 Compete with other developers and see where you rank on our global leaderboard.
               </p>
-              <button className="text-blue-500 text-sm font-medium hover:text-blue-400 transition-colors">
-                View Leaderboard →
-              </button>
+              <Link to="/leaderboard" >
+                <button className="text-blue-500 text-sm font-medium hover:text-blue-400  transition-colors">
+                  View Leaderboard →
+                </button>
+              </Link>
+              
             </div>
 
             <div className="card">

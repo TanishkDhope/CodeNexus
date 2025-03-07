@@ -15,6 +15,13 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0px; /* Removes the scrollbar's width */
+  background: transparent; /* Optional: keeps background transparent */
 }
 
 /* .cursor {
@@ -85,6 +92,7 @@ body {
   z-index: -1;
   pointer-events: none;
 }
+
 
 @layer components {
   .nav-link {

@@ -16,6 +16,8 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { Test } from './pages/test';
 import Editor from './pages/Editor';
+import ProgressTracker from "./pages/Progress";
+import ResumeBuilder from "./pages/Resume"; 
 // import AboutPage from './pages/AboutPage';
 // import MentorshipPage from './pages/MentorshipPage';
 // import SeminarsPage from './pages/SeminarsPage';
@@ -29,10 +31,13 @@ import RoadmapHome from './pages/Roadmap/RoadmapHome';
 import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
-
 import Animation from './pages/Checking/Animation'
+import AddQuiz from './pages/AddQuiz'
+
+// import Animation from './pages/Checking/Animation'
 import Course from './pages/Course'
 import Mentor from './pages/Mentor'
+import CoursePayment from './pages/CoursePayment'
 
 function App() {
   useEffect(() => {
@@ -61,11 +66,12 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/progress" element={<ProgressTracker />} />
           <Route path="/quizzes" element={<QuizPage />} />
           <Route path="/recruitment" element={<RecruitmentPage />} />
           <Route path="/hackathons" element={<HackathonPage />} />
           <Route path="/community" element={<CommunityPage />} />
-          <Route path='/ex' element={<Excercises />} />
+          <Route path='/exercises' element={<Excercises />} />
           <Route path='/ad' element={<AccessDenied />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
@@ -79,7 +85,9 @@ function App() {
           <Route path="/Roadmaps" element={<RoadmapHome />} />
           <Route path="/Mentorship" element={<MentorshipPage />} />
           <Route path="/Animation" element={<Animation />} />
+          <Route path="/addquiz" element={<AddQuiz />} />
           
+          <Route path="/resume" element={<ResumeBuilder />} />
           {/* Added dynamic route for RoadmapsDetail */}          
           <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />
           <Route path="/courses" element={<CoursesPage />} />
@@ -87,6 +95,8 @@ function App() {
           <Route path="/enrolled-courses" element={<EnrolledCoursesPage />} />
           <Route path="/course" element={<Course />} />
           <Route path='/mentor' element={<Mentor />} />
+          <Route path="/coursepayment/:courseId" element={<CoursePayment />} />
+        
         </Routes>
         <Footer />
       </div>

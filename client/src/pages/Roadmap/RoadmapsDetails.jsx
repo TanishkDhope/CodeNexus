@@ -1,5 +1,14 @@
 import React, { useEffect } from "react";
-import { FaHtml5, FaCss3Alt, FaJsSquare, FaReact, FaGithub, FaNodeJs, FaDatabase, FaDocker } from "react-icons/fa";
+import { 
+  FaHtml5, 
+  FaCss3Alt, 
+  FaJsSquare, 
+  FaReact, 
+  FaGithub, 
+  FaNodeJs, 
+  FaDatabase, 
+  FaDocker 
+} from "react-icons/fa";
 import { gsap } from "gsap";
 
 const roadmaps = [
@@ -234,14 +243,17 @@ const roadmaps = [
 ];
 
 const RoadmapsDetail = () => {
-  const roadmap = roadmaps[1];  // Adjust this to change between Frontend, Backend, or Fullstack Roadmap
+  // Change the index to switch between roadmaps
+  const roadmap = roadmaps[0];
 
-
+  useEffect(() => {
+    // Optional: Add gsap animations here
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white py-12 sm:py-16 lg:py-24 px-4 lg:px-16">
       <div className="max-w-screen-xl mx-auto">
-        <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-500 mb-8 text-center neon-glow">
+        <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-500 mb-8 text-center">
           {roadmap.title} - Detailed Roadmap
         </h2>
         <p className="text-xl text-gray-400 mb-8 text-center max-w-3xl mx-auto">
@@ -250,31 +262,25 @@ const RoadmapsDetail = () => {
 
         {/* Timeline Section */}
         <section className="timeline-section mb-12">
-          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 mb-6 text-center neon-glow">
+          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 mb-6 text-center">
             Timeline
           </h3>
-
           <div className="flex flex-col items-center">
-            {/* Timeline Steps */}
             <div className="relative w-full flex flex-col items-center space-y-16">
               {roadmap.timeline.map((step, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-center space-x-8 timeline-step"
+                  className="flex flex-col md:flex-row items-center justify-center md:space-x-8 space-y-4 md:space-y-0"
                 >
-                  {/* Connecting line */}
                   {index !== 0 && (
-                    <div className="w-24 h-1 bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600"></div>
+                    <div className="w-24 h-1 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-600"></div>
                   )}
-
-                  {/* Step Item */}
                   <div
-                    className={`flex items-center justify-center w-20 h-20 rounded-full ${step.color} text-white neon-glow shadow-lg transform hover:scale-110 transition-all duration-300`}
+                    className={`flex items-center justify-center w-20 h-20 rounded-full ${step.color} text-white shadow-lg transform hover:scale-110 transition-transform duration-300`}
                   >
                     <div className="text-3xl">{step.icon}</div>
                   </div>
-
-                  <div className="text-center text-gray-400 w-1/2">
+                  <div className="w-full md:w-1/2 text-center md:text-left text-gray-300">
                     <h4 className="text-2xl font-semibold text-white">{step.title}</h4>
                     <p>{step.description}</p>
                   </div>
@@ -286,7 +292,7 @@ const RoadmapsDetail = () => {
 
         {/* Skills Section */}
         <section className="skills-section mb-12">
-          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 mb-6 text-center neon-glow">
+          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 mb-6 text-center">
             Skills Learned
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -294,34 +300,34 @@ const RoadmapsDetail = () => {
               let icon;
               switch (skill) {
                 case "HTML & CSS":
-                  icon = <FaHtml5 className="text-3xl text-neon-orange" />;
+                  icon = <FaHtml5 className="text-3xl text-orange-400" />;
                   break;
                 case "JavaScript & DOM Manipulation":
-                  icon = <FaJsSquare className="text-3xl text-neon-yellow" />;
+                  icon = <FaJsSquare className="text-3xl text-yellow-400" />;
                   break;
                 case "Frontend Frameworks (React, Vue, Angular)":
-                  icon = <FaReact className="text-3xl text-neon-cyan" />;
+                  icon = <FaReact className="text-3xl text-cyan-400" />;
                   break;
                 case "Version Control (Git & GitHub)":
-                  icon = <FaGithub className="text-3xl text-neon-gray" />;
+                  icon = <FaGithub className="text-3xl text-gray-400" />;
                   break;
                 case "Node.js":
-                  icon = <FaNodeJs className="text-3xl text-neon-green" />;
+                  icon = <FaNodeJs className="text-3xl text-green-400" />;
                   break;
                 case "Database":
-                  icon = <FaDatabase className="text-3xl text-neon-yellow" />;
+                  icon = <FaDatabase className="text-3xl text-yellow-400" />;
                   break;
                 case "Docker":
-                  icon = <FaDocker className="text-3xl text-neon-blue" />;
+                  icon = <FaDocker className="text-3xl text-blue-400" />;
                   break;
                 default:
-                  icon = <FaCss3Alt className="text-3xl text-neon-blue" />;
+                  icon = <FaCss3Alt className="text-3xl text-blue-400" />;
                   break;
               }
               return (
                 <div
                   key={index}
-                  className="flex items-center space-x-4 bg-gray-800 p-6 rounded-lg shadow-xl hover:bg-gray-700 transition-all duration-300 skill-card"
+                  className="flex items-center space-x-4 bg-gray-800 p-6 rounded-lg shadow-xl hover:bg-gray-700 transition-colors duration-300"
                 >
                   {icon}
                   <span className="text-lg text-gray-300">{skill}</span>
@@ -333,7 +339,7 @@ const RoadmapsDetail = () => {
 
         {/* Subtopics Section */}
         <section className="subtopics-section mb-12">
-          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 mb-6 text-center neon-glow">
+          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 mb-6 text-center">
             Key Subtopics
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -354,7 +360,7 @@ const RoadmapsDetail = () => {
 
         {/* Resources Section */}
         <section className="resources-section">
-          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 mb-6 text-center neon-glow">
+          <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 mb-6 text-center">
             Resources
           </h3>
           <ul className="list-disc pl-5 space-y-2 text-lg text-gray-300">
