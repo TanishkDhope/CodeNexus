@@ -151,7 +151,7 @@ const Course = () => {
               >
                 {/* Circle and timeline line */}
                 <div
-                  className={`left-3/4 z-10 flex justify-center items-center w-12 h-12 rounded-full bg-blue-600 text-white absolute left-1/4 transform -translate-x-1/2 ${item.completed ? "bg-green-500" : ""}`}
+                  className={`left-3/4 z-10 flex justify-center items-center w-12 h-12 rounded-full bg-blue-600 text-white absolute transform -translate-x-1/2 ${item.completed ? "bg-green-500" : ""}`}
                 >
                   <PlayCircle className="w-6 h-6" />
                 </div>
