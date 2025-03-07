@@ -61,6 +61,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/progress" element={<ProgressTracker />} />
           <Route path="/quizzes" element={<QuizPage />} />
           <Route path="/recruitment" element={<RecruitmentPage />} />
           <Route path="/hackathons" element={<HackathonPage />} />
