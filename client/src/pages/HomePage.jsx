@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,33 +11,6 @@ const HomePage = () => {
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
-  const navigate=useNavigate();
-  const [role,setRole]=useState(null);
-  useEffect(() => {
-    const checkUserRole = async () => {
-      try {
-        const res = await axios.get("http://localhost:8000/check-role", {
-          withCredentials: true, // Sends cookies with request
-        });
-  
-        if (res.data.role !== "admin") {
-          console.log(res.data.role)
-          alert("Access denied! Admins only.");
-          navigate("/ad")// Redirect unauthorized users
-          return;
-        }
-        console.log(res.data.role)
-        setRole(res.data.role);
-      } catch (error) {
-        console.log(error)
-        alert(error.response?.data?.message || "Access denied!");
-        navigate("/login"); // Redirect if token is missing/invalid
-      }
-    };
-  
-    checkUserRole();
-  }, []);
-
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
 
   // Define your four sentences here.
@@ -218,6 +191,7 @@ const HomePage = () => {
                 </div>
               ))}
             </div>
+
             <p className="text-gray-300 text-lg md:text-xl max-w-lg">
               Bridge the gap between theory and practice with our hands-on
               learning platform designed for aspiring developers.
