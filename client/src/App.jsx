@@ -25,6 +25,8 @@ import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 
 import Animation from './pages/Checking/Animation'
+import EnrolledCoursesPage from './pages/EnrolledCourses'
+import Course from './pages/Course'
 
 function App() {
   useEffect(() => {
@@ -71,7 +73,7 @@ function App() {
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/courses/:courseId" element={<CourseDetailsPage />} />
           <Route path="/enrolled-courses" element={<EnrolledCoursesPage />} />
-
+          <Route path="/course" element={<Course />} />
         </Routes>
         <Footer />
       </div>
