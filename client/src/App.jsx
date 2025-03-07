@@ -20,7 +20,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Leaderboard from './pages/Leaderboard/Leaderboard';
 import UserProfile from './pages/UserProfile/UserProfile';
 import RoadmapHome from './pages/Roadmap/RoadmapHome';
-
+import ProgressTracker from './pages/Progress';
 function App() {
   useEffect(() => {
     // Register ScrollTrigger plugin
@@ -48,6 +48,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/progress" element={<ProgressTracker />} />
           <Route path="/quizzes" element={<QuizPage />} />
           <Route path="/recruitment" element={<RecruitmentPage />} />
           <Route path="/hackathons" element={<HackathonPage />} />
