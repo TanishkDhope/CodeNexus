@@ -25,7 +25,6 @@ import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 
 import Animation from './pages/Checking/Animation'
-import EnrolledCoursesPage from './pages/EnrolledCourses'
 import Course from './pages/Course'
 
 function App() {
