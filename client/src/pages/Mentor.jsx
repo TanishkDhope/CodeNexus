@@ -1,25 +1,200 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
+import {io} from "socket.io-client";
+import { PhoneOutgoing, PhoneIncoming, PhoneOff } from "lucide-react";
 
 const Mentor = () => {
   const { getRootProps, getInputProps } = useDropzone();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState([]);
+  const chatContainerRef = useRef(null);
+  const [tole,setRole]=useState("Mentor")
+  
 
   const handleSendMessage = () => {
     if (message.trim() !== "") {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: message, sender: "Mentor", time: new Date().toLocaleTimeString() },
-      ]);
-      setMessage("");
+      const chatElement = document.getElementById("chat");
+      const mssg=document.createElement("div");
+      mssg.innerHTML=`<div class="flex items-center space-x-4 mt-4">
+        <div class="flex-1 space-y-1">
+          <div class="text-sm font-medium text-blue-900">Mentor</div>
+          <p class="text-sm text-blue-500">${message}</p>
+        </div>
+      </div>`;
+      chatElement.appendChild(mssg);
+      chatElement.scrollTop = chatElement.scrollHeight;
     }
+  };
+
+  const handleSentMessage = (message) => {
+    const chatElement = document.getElementById("chat");
+    const mssg=document.createElement("div");
+    mssg.innerHTML=`<div class="flex items-center space-x-4 mt-4">
+      <div class="flex-1 space-y-1">
+        <div class="text-sm font-medium text-green-900">Mentee</div>
+        <p class="text-sm text-green-500">${message}</p>
+      </div>
+    </div>`;
+    chatElement.appendChild(mssg);
+    chatElement.scrollTop = chatElement.scrollHeight;
   };
 
   const handleDropFiles = (acceptedFiles) => {
     setFiles(acceptedFiles);
   };
+
+  const socket = io("http://localhost:5100");
+  const peerConnection = useRef(null);
+  const localVideoRef = useRef(null);
+  const remoteVideoRef = useRef(null);
+  const [connected, setConnected] = useState(false);
+
+  useEffect(() => {
+    socket.on("offer", async (offer) => {
+      console.log("Received offer");
+      createAnsElems(offer);
+    });
+
+    socket.on("answer", async (answer) => {
+      if (peerConnection.current) {
+        await peerConnection.current.setRemoteDescription(new RTCSessionDescription(answer));
+      }
+    });
+
+    socket.on("ice-candidate", async (candidate) => {
+      if (!peerConnection.current) {
+        console.warn("PeerConnection is not initialized. Storing candidate...");
+        return;
+      }
+
+      if (!peerConnection.current.remoteDescription) {
+        console.warn("Remote description not set yet. Retrying in 500ms...");
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+
+      try {
+        await peerConnection.current.addIceCandidate(new RTCIceCandidate(candidate));
+        console.log("ICE Candidate added successfully");
+      } catch (error) {
+        console.error("Error adding ICE Candidate:", error);
+      }
+    });
+
+    socket.on("hangup", () => {
+      if (peerConnection.current) {
+        endCall();
+      }
+    });
+
+    return () => {
+      socket.off("offer");
+      socket.off("answer");
+      socket.off("ice-candidate");
+      socket.off("hangup");
+    };
+  }, []);
+
+
+  const answerCall = async (offer) => {
+    await createPeerConnection(offer);
+    await getUserMedia();
+
+    const answer = await peerConnection.current.createAnswer();
+    await peerConnection.current.setLocalDescription(new RTCSessionDescription(answer));
+    socket.emit("answer", answer);
+    setConnected(true);
+
+    const element = document.getElementById("control");
+    if (element) element.classList.add("hidden");
+  };
+
+  const createPeerConnection = async (offer) => {
+    if (peerConnection.current) {
+      console.warn("PeerConnection already exists.");
+      return;
+    }
+
+    console.log("Creating PeerConnection...");
+    peerConnection.current = new RTCPeerConnection({
+      iceServers: [
+        { urls: "stun:stun.l.google.com:19302" },
+        { urls: "turn:your-turn-server.com", username: "user", credential: "pass" },
+      ],
+    });
+
+    peerConnection.current.onicecandidate = (event) => {
+      if (event.candidate) {
+        socket.emit("ice-candidate", event.candidate);
+      }
+    };
+
+    peerConnection.current.ontrack = (event) => {
+      console.log("Remote track received");
+      remoteVideoRef.current.srcObject = event.streams[0];
+    };
+
+    if (offer) {
+      await peerConnection.current.setRemoteDescription(new RTCSessionDescription(offer));
+    }
+  };
+
+  const getUserMedia = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+  
+      if (localVideoRef.current) {
+        localVideoRef.current.srcObject = stream;
+      } else {
+        console.error("localVideoRef is not available yet.");
+      }
+  
+      stream.getTracks().forEach((track) => peerConnection.current?.addTrack(track, stream));
+    } catch (error) {
+      console.error("Error accessing media devices:", error);
+    }
+  };
+  
+
+  const startCall = async () => {
+    await createPeerConnection();
+    await getUserMedia();
+
+    const offer = await peerConnection.current.createOffer();
+    await peerConnection.current.setLocalDescription(new RTCSessionDescription(offer));
+    socket.emit("offer", offer);
+    setConnected(true);
+  };
+
+  const endCall = () => {
+    if (peerConnection.current) {
+      peerConnection.current.close();
+      peerConnection.current = null;
+    }
+
+    if (localVideoRef.current?.srcObject) {
+      localVideoRef.current.srcObject.getTracks().forEach((track) => track.stop());
+      localVideoRef.current.srcObject = null;
+    }
+
+    if (remoteVideoRef.current?.srcObject) {
+      remoteVideoRef.current.srcObject = null;
+    }
+    setConnected(false);
+    socket.emit("hangup");
+
+    const element = document.getElementById("control");
+    if (element) element.classList.add("hidden");
+  };
+
+  const createAnsElems = (offer) => {
+    const element = document.getElementById("control");
+    if (element) {
+      element.classList.remove("hidden");
+      element.onclick = () => answerCall(offer);
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white flex flex-col mt-20">
@@ -60,15 +235,7 @@ const Mentor = () => {
 
           {/* Chat Messages */}
           <div className="flex flex-col space-y-4 h-96 overflow-auto p-4 bg-gray-900 border-2 border-blue-400 rounded-xl shadow-xl">
-            <div className="flex-1 overflow-auto">
-              {messages.map((msg, index) => (
-                <div key={index} className={`mb-2 ${msg.sender === "Mentor" ? "text-right" : "text-left"}`}>
-                  <div className={`inline-block ${msg.sender === "Mentor" ? "bg-blue-500 text-white" : "bg-gray-600 text-white"} px-4 py-2 rounded-lg shadow-md`}>
-                    <p className="text-sm">{msg.text}</p>
-                    <span className="text-xs block text-gray-400">{msg.time}</span>
-                  </div>
-                </div>
-              ))}
+            <div id="chat" className="flex-1 overflow-auto">  
             </div>
             <div className="flex items-center space-x-4 mt-4">
               <input
@@ -91,11 +258,24 @@ const Mentor = () => {
         {/* Right Section (2/3) - Video Call */}
         <section className="lg:w-2/3 w-full p-6 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 rounded-xl shadow-xl">
           <h2 className="text-2xl font-semibold text-blue-500 mb-4">Live Video Call</h2>
-          <div className="flex justify-center items-center h-72 rounded-xl shadow-2xl transition-transform transform hover:scale-105">
-            {/* Placeholder for video call */}
-            <p className="text-lg text-white">Live Video Call will appear here</p>
+          <div className="flex space-x-4">
+            <video ref={remoteVideoRef} className="w-1/2 h-64 bg-black rounded-xl" autoPlay muted />
+            <video ref={localVideoRef} className="w-1/2 h-64 bg-black rounded-xl" autoPlay muted />
           </div>
+          <button id="control" className="hidden cursor-pointer p-3 rounded-full bg-green-500 hover:bg-green-600 transition-all flex items-center">
+          <PhoneIncoming size={24} />
+          <span className="ml-2">Answer Call</span>
+        </button>
+
+          <button onClick={startCall} className="cursor-pointer p-3 rounded-full bg-green-500 hover:bg-green-600 transition-all flex items-center">
+          <PhoneOutgoing size={24} />
+        </button>
+
+        <button onClick={endCall} className="cursor-pointer p-3 rounded-full bg-red-600 hover:bg-red-700 transition-all">
+          <PhoneOff size={24} />
+        </button>
         </section>
+        
       </main>
 
       <footer className="text-center py-6 bg-gray-800 mt-12 rounded-t-xl shadow-xl">

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Calendar, Check, Star } from "lucide-react";
 import Button from "../components/Button";
 import MatrixBackground from "../components/MatrixBackground";
+import {io} from "socket.io-client";
 
 // Mentor data
 const mentors = [
@@ -82,6 +83,9 @@ const mentors = [
   },
 ];
 
+
+
+
 // Mentorship plans
 const plans = [
   {
@@ -130,6 +134,9 @@ const plans = [
 
 // Detailed Mentor Modal component (only declared once)
 function MentorProfile({ mentor, onClose }) {
+
+  
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
       <div className="bg-gray-900 p-8 rounded-lg relative max-w-xl w-full">

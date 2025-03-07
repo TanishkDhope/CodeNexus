@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.2",
+    "@codemirror/lang-java": "^6.0.1",
+    "@codemirror/lang-javascript": "^6.2.3",
+    "@codemirror/lang-python": "^6.1.7",
     "@radix-ui/react-slot": "^1.1.2",
     "@react-spring/web": "^9.7.5",
     "@splinetool/react-spline": "^4.0.0",
@@ -20,7 +24,7 @@
     "class-variance-authority": "^0.7.1",
     "firebase": "^11.4.0",
     "gsap": "^3.12.7",
-    "html2pdf.js": "^0.9.0",
+    "html2pdf.js": "^0.10.3",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.477.0",
     "react": "^19.0.0",
@@ -29,6 +33,7 @@
     "react-icons": "^5.5.0",
     "react-image": "^4.1.0",
     "react-router-dom": "^7.2.0",
+    "socket.io-client": "^4.8.1",
     "tailwindcss": "^4.0.11"
   },
   "devDependencies": {
