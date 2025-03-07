@@ -37,7 +37,8 @@ app.post("/login", (req, res) => {
       return res.status(401).json({ message: "User not found" });
   }
 
-  const token = generateToken(user.role);
+  const token = generateToken(user.role)  ;
+
   res.cookie("authToken", token, {
     httpOnly: true,
     secure: false, // Set to true in production
