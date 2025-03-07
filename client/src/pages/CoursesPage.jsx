@@ -5,12 +5,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Clock, Filter, Search, Star, Users } from "lucide-react";
 import Button from "../components/Button";
 import MatrixBackground from "../components/MatrixBackground";
-import img1 from "../assets/Courses/img1.jpeg"
-import img2 from "../assets/Courses/img2.jpeg"
-import img3 from "../assets/Courses/img3.jpeg"
-import img4 from "../assets/Courses/img4.jpeg"
-import img5 from "../assets/Courses/img5.jpeg"
-import img6 from "../assets/Courses/img6.jpeg"
+import img1 from "../assets/Courses/img1.jpeg";
+import img2 from "../assets/Courses/img2.jpeg";
+import img3 from "../assets/Courses/img3.jpeg";
+import img4 from "../assets/Courses/img4.jpeg";
+import img5 from "../assets/Courses/img5.jpeg";
+import img6 from "../assets/Courses/img6.jpeg";
 
 const courses = [
   {

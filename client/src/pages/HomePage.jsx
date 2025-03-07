@@ -148,8 +148,8 @@ const HomePage = () => {
     );
 
     // Animated background code effect
-    const canvas = document.getElementById("matrix-canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -214,11 +214,9 @@ const HomePage = () => {
             <div className="inline-block bg-green-500/20 px-4 py-1 rounded-full text-green-400 text-sm font-medium">
               Full Stack Development LMS
             </div>
-
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               Master <span className="gradient-text">Full Stack</span> Development
             </h1>
-
             <p className="text-gray-300 text-lg md:text-xl max-w-lg">
               Bridge the gap between theory and practice with our hands-on
               learning platform designed for aspiring developers.

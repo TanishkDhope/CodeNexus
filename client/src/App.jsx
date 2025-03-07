@@ -32,7 +32,11 @@ import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 import Animation from './pages/Checking/Animation'
+import ProgressTracker from './pages/Progress'
+
+// import Animation from './pages/Checking/Animation'
 import Course from './pages/Course'
+import CoursePayment from './pages/CoursePayment'
 
 function App() {
   useEffect(() => {
@@ -87,6 +91,7 @@ function App() {
           <Route path="/courses/:courseId" element={<CourseDetailsPage />} />
           <Route path="/enrolled-courses" element={<EnrolledCoursesPage />} />
           <Route path="/course" element={<Course />} />
+          <Route path="/coursepayment/:courseId" element={<CoursePayment />} />
         
         </Routes>
         <Footer />

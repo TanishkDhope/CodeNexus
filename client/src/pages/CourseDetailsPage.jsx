@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import { ArrowRight, Clock, Star, Users, BookOpen, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 // Static course data for the sake of this example.
 const courses = [
@@ -55,6 +56,11 @@ const courses = [
 const CourseDetailsPage = () => {
   const { courseId } = useParams(); // Get the courseId from the URL
   const course = courses.find((course) => course.id === parseInt(courseId));
+
+  const navigate = useNavigate();
+  const Coursepay = () => {
+    navigate("/CoursePayment", { state: { courseId } });
+  };
 
   if (!course) {
     return <div className="text-center text-white">Course not found</div>;
@@ -142,7 +148,7 @@ const CourseDetailsPage = () => {
 
           {/* Enroll CTA */}
           <section className="text-center mt-8">
-            <Button variant="neon" size="lg" className="bg-gradient-to-r from-pink-500 to-purple-500">
+            <Button variant="neon" size="lg" className="bg-gradient-to-r from-pink-500 to-purple-500" onClick={Coursepay}>
               Enroll Now <ArrowRight className="inline ml-2" />
             </Button>
           </section>
