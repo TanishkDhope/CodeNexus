@@ -10,13 +10,13 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Daily Quizzes', path: '/quizzes' },
+    { name: 'Challenges', path: '/quizzes' },
+    { name: 'Courses', path: '/Courses' },
     { name: 'Recruitment', path: '/recruitment' },
     { name: 'Hackathons', path: '/hackathons' },
     { name: 'Community', path: '/community' },
-    { name: 'Mentorship', path: '/mentorship' },
-    { name: 'Seminars', path: '/seminars' },
-    { name: 'About Us', path: '/about' },
+    // { name: 'Mentorship', path: '/mentorship' },
+    { name: 'Roadmaps', path: '/Roadmaps' },
   ];
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-1">
+        <div className="hidden md:flex space-x-3 ml-30">
           {navLinks.map((link) => (
             <Link
               key={link.path}

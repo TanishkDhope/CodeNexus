@@ -17,7 +17,7 @@ body {
   overflow-x: hidden;
 }
 
-.cursor {
+/* .cursor {
   width: 20px;
   height: 20px;
   border: 2px solid var(--primary);
@@ -34,7 +34,7 @@ body {
   transform: translate(-50%, -50%) scale(3);
   opacity: 0;
   transition: all 0.3s ease;
-}
+} */
 
 .glow-text {
   text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
