@@ -236,45 +236,7 @@ const roadmaps = [
 const RoadmapsDetail = () => {
   const roadmap = roadmaps[0];  // Adjust this to change between Frontend, Backend, or Fullstack Roadmap
 
-  useEffect(() => {
-    gsap.from(".timeline-step", {
-      opacity: 0,
-      y: 50,
-      stagger: 0.3,
-      scrollTrigger: {
-        trigger: ".timeline-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      },
-    });
 
-
-
-    gsap.from(".subtopic", {
-      opacity: 0,
-      y: 50,
-      stagger: 0.3,
-      scrollTrigger: {
-        trigger: ".subtopics-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      },
-    });
-
-    gsap.from(".resources-section", {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      scrollTrigger: {
-        trigger: ".resources-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        scrub: true,
-      },
-    });
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white py-12 sm:py-16 lg:py-24 px-4 lg:px-16">

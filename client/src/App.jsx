@@ -2,14 +2,10 @@ import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/HomePage'
-import Leaderboard from './pages/Leaderboard/Leaderboard'
-import UserProfile from './pages/UserProfile/UserProfile'
-import RoadmapHome from './pages/Roadmap/RoadmapHome'
 import RoadmapsDetail from './pages/Roadmap/RoadmapsDetails' // Import the RoadmapsDetail component
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
 import QuizPage from './pages/QuizPage';
 import RecruitmentPage from './pages/RecruitmentPage';
 import HackathonPage from './pages/HackathonPage';
@@ -23,7 +19,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Leaderboard from './pages/Leaderboard/Leaderboard';
 import UserProfile from './pages/UserProfile/UserProfile';
 import RoadmapHome from './pages/Roadmap/RoadmapHome';
-import RoadmapsDetail from './pages/Roadmap/RoadmapsDetails'; // Import the RoadmapsDetail component
 
 function App() {
   useEffect(() => {
@@ -59,6 +54,12 @@ function App() {
           {/* <Route path="/about" element={<AboutPage />} />
           <Route path="/mentorship" element={<MentorshipPage />} />
           <Route path="/seminars" element={<SeminarsPage />} /> */}
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/UserProfile" element={<UserProfile />} />
+          <Route path="/Roadmaps" element={<RoadmapHome />} />
+          
+          {/* Added dynamic route for RoadmapsDetail */}          
+          <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />
         </Routes>
         <Footer />
       </div>
