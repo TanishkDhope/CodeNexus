@@ -26,7 +26,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Leaderboard from './pages/Leaderboard/Leaderboard';
 import UserProfile from './pages/UserProfile/UserProfile';
 import RoadmapHome from './pages/Roadmap/RoadmapHome';
-import ProgressTracker from './pages/Progress';
+import CourseDetailsPage from "./pages/CourseDetailsPage";
+import EnrolledCoursesPage from './pages/EnrolledCourses';
+import MentorshipPage from './pages/MentorshipPage'
+
+import Animation from './pages/Checking/Animation'
+import Course from './pages/Course'
+
 function App() {
   useEffect(() => {
     // Register ScrollTrigger plugin
@@ -71,10 +77,16 @@ function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/UserProfile" element={<UserProfile />} />
           <Route path="/Roadmaps" element={<RoadmapHome />} />
+          <Route path="/Mentorship" element={<MentorshipPage />} />
+          <Route path="/Animation" element={<Animation />} />
           
           {/* Added dynamic route for RoadmapsDetail */}          
           <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />
           <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/courses/:courseId" element={<CourseDetailsPage />} />
+          <Route path="/enrolled-courses" element={<EnrolledCoursesPage />} />
+          <Route path="/course" element={<Course />} />
+        
         </Routes>
         <Footer />
       </div>

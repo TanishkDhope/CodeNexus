@@ -2,7 +2,9 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from 'firebase/firestore';
-import { doc, getDoc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { GoogleAuthProvider } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import { doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs } from "firebase/firestore";
 import { getDatabase, ref, get, child, update } from 'firebase/database';
 
 const firebaseConfig = {
@@ -18,11 +20,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
+export const auth = getAuth(app);
 const db = getFirestore(app);
+export const googleProvider=new GoogleAuthProvider(app)
 
 const database = getDatabase(app);
 
 const analytics = getAnalytics(app);
 export default app;
-export { database, ref, get, child, update, db, analytics, doc, getDoc, setDoc, updateDoc, deleteDoc };
+export { database, ref, get, child, update, db, analytics, doc, getDoc, setDoc, updateDoc, deleteDoc ,collection, getDocs };
