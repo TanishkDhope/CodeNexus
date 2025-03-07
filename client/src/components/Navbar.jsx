@@ -10,12 +10,11 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Daily Quizzes', path: '/quizzes' },
+    { name: 'Daily Challenges', path: '/quizzes' },
     { name: 'Recruitment', path: '/recruitment' },
     { name: 'Hackathons', path: '/hackathons' },
     { name: 'Community', path: '/community' },
     { name: 'Mentorship', path: '/mentorship' },
-    { name: 'Seminars', path: '/seminars' },
     { name: 'About Us', path: '/about' },
   ];
 

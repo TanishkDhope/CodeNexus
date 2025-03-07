@@ -10,6 +10,7 @@ import CommunityPage from './pages/CommunityPage';
 // import MentorshipPage from './pages/MentorshipPage';
 // import SeminarsPage from './pages/SeminarsPage';
 import Footer from './components/Footer';
+import CoursesPage from './pages/CoursesPage';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -47,6 +48,7 @@ function App() {
           {/* <Route path="/about" element={<AboutPage />} />
           <Route path="/mentorship" element={<MentorshipPage />} />
           <Route path="/seminars" element={<SeminarsPage />} /> */}
+          <Route path="/courses" element={<CoursesPage />} />
         </Routes>
         <Footer />
       </div>

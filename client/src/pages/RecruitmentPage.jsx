@@ -345,6 +345,7 @@ const RecruitmentPage = () => {
                 Upload your resume to make it easier to apply for jobs and get discovered by recruiters.
               </p>
               <button className="btn-secondary">Upload Resume</button>
+              <button className="btn-secondary ml-3">Build Resume</button>
             </div>
             <div className="card">
               <h3 className="text-xl font-bold mb-4">Create Your Profile</h3>

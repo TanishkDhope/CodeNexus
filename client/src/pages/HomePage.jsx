@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,11 +9,48 @@ const HomePage = () => {
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+
+  // Define your four sentences here.
+  const sentences = [
+    {
+      badge: "Full Stack Development LMS",
+      header: (
+        <>
+          Master <span className="gradient-text">Full Stack</span> Development
+        </>
+      ),
+    },
+    {
+      badge: "C/C++ Programming",
+      header: (
+        <>
+          Master <span className="gradient-text">C/C++</span> Programming
+        </>
+      ),
+    },
+    {
+      badge: "Python Programming",
+      header: (
+        <>
+          Master <span className="gradient-text">Python</span> Programming
+        </>
+      ),
+    },
+    {
+      badge: "Java Programming",
+      header: (
+        <>
+          Master <span className="gradient-text">Java</span> Programming
+        </>
+      ),
+    },
+  ];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero animation
+    // Hero animation for all children of hero-content
     gsap.fromTo(
       '.hero-content > *',
       { y: 50, opacity: 0 },
@@ -70,7 +107,7 @@ const HomePage = () => {
       }
     );
 
-    // Animated background code effect
+    // Animated background code effect (Matrix effect)
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -99,17 +136,22 @@ const HomePage = () => {
         if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
-
         drops[i]++;
       }
     }
 
     const matrixInterval = setInterval(draw, 33);
 
+    // Toggle between sentences every 3 seconds.
+    const sentenceInterval = setInterval(() => {
+      setCurrentSentenceIndex((prevIndex) => (prevIndex + 1) % sentences.length);
+    }, 3000);
+
     return () => {
       clearInterval(matrixInterval);
+      clearInterval(sentenceInterval);
     };
-  }, []);
+  }, [sentences.length]);
 
   return (
     <div className="overflow-hidden">
@@ -119,15 +161,29 @@ const HomePage = () => {
       <section ref={heroRef} className="relative min-h-screen flex items-center pt-20 pb-16">
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
           <div className="hero-content space-y-6 z-10">
-            <div className="inline-block bg-green-500/20 px-4 py-1 rounded-full text-green-400 text-sm font-medium">
-              Full Stack Development LMS
+            {/* Toggling Text Container */}
+            <div className="relative min-h-[150px]">
+              {sentences.map((item, index) => (
+                <div
+                  key={index}
+                  className={`absolute transition-opacity duration-1000 ${
+                    index === currentSentenceIndex ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  <div className="inline-block bg-green-500/20 px-4 py-1 rounded-full text-green-400 text-sm font-medium">
+                    {item.badge}
+                  </div>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                    {item.header}
+                  </h1>
+                </div>
+              ))}
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              Master <span className="gradient-text">Full Stack</span> Development
-            </h1>
+
             <p className="text-gray-300 text-lg md:text-xl max-w-lg">
               Bridge the gap between theory and practice with our hands-on learning platform designed for aspiring developers.
             </p>
+            
             <div className="flex flex-wrap gap-4">
               <Link to="/signup" className="btn-primary">
                 Get Started
