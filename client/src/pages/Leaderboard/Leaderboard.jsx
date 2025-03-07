@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { gsap } from 'gsap';
+import { Zap, Calendar, Users, Clock, Trophy, MapPin, ChevronRight, Filter, Tag } from 'lucide-react';
 
 const Leaderboard = () => {
-  // State for the selected leaderboard tab
   const [selectedTab, setSelectedTab] = useState('codeforces');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
@@ -52,17 +53,16 @@ const Leaderboard = () => {
     ],
   };
 
-  // Filtered data based on search query
+  // Filter and sort data
   const filteredData = leaderboards[selectedTab].filter((entry) =>
     entry.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Sorting the leaderboard
   const sortedData = filteredData.sort((a, b) => {
-    if (sortOrder === 'asc') {
-      return a.points - b.points;
-    }
-    return b.points - a.points;
+    const aVal = a.points !== undefined ? a.points : a.wins;
+    const bVal = b.points !== undefined ? b.points : b.wins;
+    if (sortOrder === 'asc') return aVal - bVal;
+    return bVal - aVal;
   });
 
   // Pagination logic
@@ -72,83 +72,70 @@ const Leaderboard = () => {
     currentPage * itemsPerPage
   );
 
+  useEffect(() => {
+    gsap.fromTo(
+      '.leaderboard-header > *',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: 'power2.out' }
+    );
+    gsap.fromTo(
+      '.leaderboard-table',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: 'power2.out' }
+    );
+  }, [selectedTab, searchQuery, sortOrder, currentPage]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-gray-200 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto mt-5 pt-7">
         {/* Tab Navigation */}
         <div className="flex justify-center space-x-6 mb-8">
-          <button
-            className={`px-6 py-2 text-lg font-semibold rounded-full transition-all duration-300 ${
-              selectedTab === 'codeforces'
-                ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg transform scale-105'
-                : 'bg-gray-800 text-gray-300 hover:text-white hover:scale-105 transform transition'
-            }`}
-            onClick={() => setSelectedTab('codeforces')}
-          >
-            Codeforces
-          </button>
-          <button
-            className={`px-6 py-2 text-lg font-semibold rounded-full transition-all duration-300 ${
-              selectedTab === 'leetcode'
-                ? 'bg-gradient-to-r from-green-400 to-teal-600 text-white shadow-lg transform scale-105'
-                : 'bg-gray-800 text-gray-300 hover:text-white hover:scale-105 transform transition'
-            }`}
-            onClick={() => setSelectedTab('leetcode')}
-          >
-            Leetcode
-          </button>
-          <button
-            className={`px-6 py-2 text-lg font-semibold rounded-full transition-all duration-300 ${
-              selectedTab === 'dailyChallenges'
-                ? 'bg-gradient-to-r from-yellow-400 to-red-600 text-white shadow-lg transform scale-105'
-                : 'bg-gray-800 text-gray-300 hover:text-white hover:scale-105 transform transition'
-            }`}
-            onClick={() => setSelectedTab('dailyChallenges')}
-          >
-            Daily Challenges
-          </button>
-          <button
-            className={`px-6 py-2 text-lg font-semibold rounded-full transition-all duration-300 ${
-              selectedTab === 'hackathonWins'
-                ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-lg transform scale-105'
-                : 'bg-gray-800 text-gray-300 hover:text-white hover:scale-105 transform transition'
-            }`}
-            onClick={() => setSelectedTab('hackathonWins')}
-          >
-            Hackathon Wins
-          </button>
+          {['codeforces', 'leetcode', 'dailyChallenges', 'hackathonWins'].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => { setSelectedTab(tab); setCurrentPage(1); }}
+              className={`px-6 py-2 text-lg font-semibold rounded-full transition-all duration-300 ${
+                selectedTab === tab
+                  ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg transform scale-105'
+                  : 'bg-gray-800 text-gray-300 hover:text-white hover:scale-105'
+              }`}
+            >
+              {tab === 'codeforces' && 'Codeforces'}
+              {tab === 'leetcode' && 'Leetcode'}
+              {tab === 'dailyChallenges' && 'Daily Challenges'}
+              {tab === 'hackathonWins' && 'Hackathon Wins'}
+            </button>
+          ))}
         </div>
 
         {/* Search & Sort Section */}
-        <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
-          <div className="flex space-x-4">
-            <input
-              type="text"
-              className="px-4 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400"
-              placeholder="Search by username"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <select
-              className="px-4 py-2 rounded-md bg-gray-800 text-white"
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-            >
-              <option value="asc">Sort by Points (Asc)</option>
-              <option value="desc">Sort by Points (Desc)</option>
-            </select>
-          </div>
+        <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
+          <input
+            type="text"
+            className="px-4 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400"
+            placeholder="Search by username"
+            value={searchQuery}
+            onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
+          />
+          <select
+            className="px-4 py-2 rounded-md bg-gray-800 text-white"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+          >
+            <option value="asc">Sort by Points (Asc)</option>
+            <option value="desc">Sort by Points (Desc)</option>
+          </select>
         </div>
 
         {/* Leaderboard Content */}
         <div className="bg-gradient-to-r from-gray-800 to-gray-700 p-8 rounded-lg shadow-lg space-y-6">
-          <h2 className="text-3xl font-bold text-center text-white">
+          <h2 className="leaderboard-header text-3xl font-bold text-center text-white">
             {selectedTab === 'codeforces' && 'Codeforces Leaderboard'}
             {selectedTab === 'leetcode' && 'Leetcode Leaderboard'}
             {selectedTab === 'dailyChallenges' && 'Daily Challenges Leaderboard'}
             {selectedTab === 'hackathonWins' && 'Hackathon Wins Leaderboard'}
           </h2>
-          <table className="w-full text-gray-300">
+          <table className="leaderboard-table w-full text-gray-300">
             <thead>
               <tr>
                 <th className="py-2 text-left pl-4">Rank</th>
