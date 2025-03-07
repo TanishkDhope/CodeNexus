@@ -107,6 +107,8 @@ const QuizPage = () => {
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, delay: 0.5, ease: 'power2.out' }
     );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
@@ -365,9 +367,12 @@ const QuizPage = () => {
               <p className="text-gray-400 text-sm mb-4">
                 Practice with unlimited quizzes on specific topics to strengthen your skills.
               </p>
-              <button className="text-green-500 text-sm font-medium hover:text-green-400 transition-colors">
-                Start Practice →
-              </button>
+              <Link to = '/exercises'>
+                <button className="text-green-500 text-sm font-medium hover:text-green-400 transition-colors">
+                  Start Practice →
+                </button>
+              </Link>
+              
             </div>
 
             <div className="card">

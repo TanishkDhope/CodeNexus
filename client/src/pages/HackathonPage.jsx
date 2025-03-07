@@ -128,6 +128,8 @@ const HackathonPage = () => {
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, delay: 0.5, ease: 'power2.out' }
     );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
 import { javascript } from "@codemirror/lang-javascript";
@@ -27,9 +27,17 @@ const Editor = () => {
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Auto scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   const executeCode = async () => {
     setLoading(true);
     setOutput("Running...");
+
+    // Scroll to top when executing code
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
     try {
       const response = await axios.post("http://localhost:5000/execute", {

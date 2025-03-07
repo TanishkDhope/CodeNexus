@@ -30,6 +30,7 @@ import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 import ProgressTracker from './pages/Progress'
+import AddQuiz from './pages/AddQuiz'
 
 // import Animation from './pages/Checking/Animation'
 import Course from './pages/Course'
@@ -67,7 +68,7 @@ function App() {
           <Route path="/recruitment" element={<RecruitmentPage />} />
           <Route path="/hackathons" element={<HackathonPage />} />
           <Route path="/community" element={<CommunityPage />} />
-          <Route path='/ex' element={<Excercises />} />
+          <Route path='/exercises' element={<Excercises />} />
           <Route path='/ad' element={<AccessDenied />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
@@ -81,6 +82,7 @@ function App() {
           <Route path="/Roadmaps" element={<RoadmapHome />} />
           <Route path="/Mentorship" element={<MentorshipPage />} />
           <Route path="/Animation" element={<Animation />} />
+          <Route path="/addquiz" element={<AddQuiz />} />
           
           {/* Added dynamic route for RoadmapsDetail */}          
           <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />

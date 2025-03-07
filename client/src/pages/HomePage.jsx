@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CodeEditorButton from "../components/codeEditorButton";
+import ExercisesButton from "../components/ExercisesButton";
 import axios from "axios";
 import {
   Code,
@@ -145,6 +146,8 @@ const HomePage = () => {
       }
     );
 
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     // Animated background code effect
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
@@ -192,6 +195,7 @@ const HomePage = () => {
       clearInterval(matrixInterval);
       clearInterval(sentenceInterval);
     };
+
   }, [sentences.length]);
 
   return (
@@ -201,6 +205,8 @@ const HomePage = () => {
         className="fixed top-0 left-0 w-full h-full -z-10 opacity-20"
       ></canvas>
       <CodeEditorButton />
+
+      <ExercisesButton />
 
       {/* Hero Section */}
       <section
