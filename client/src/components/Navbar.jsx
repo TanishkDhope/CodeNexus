@@ -15,8 +15,7 @@ const Navbar = () => {
     { name: 'Hackathons', path: '/hackathons' },
     { name: 'Community', path: '/community' },
     { name: 'Mentorship', path: '/mentorship' },
-    { name: 'Seminars', path: '/seminars' },
-    { name: 'About Us', path: '/about' },
+    { name: 'Roadmaps', path: '/Roadmaps' },
   ];
 
   useEffect(() => {
@@ -55,7 +54,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-1">
+        <div className="hidden md:flex space-x-3 ml-30">
           {navLinks.map((link) => (
             <Link
               key={link.path}
