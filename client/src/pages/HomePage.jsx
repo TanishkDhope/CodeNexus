@@ -60,30 +60,30 @@ const HomePage = () => {
   ];
   const navigate=useNavigate();
   const [role,setRole]=useState(null);
-  useEffect(() => {
-    const checkUserRole = async () => {
-      try {
-        const res = await axios.get("http://localhost:8000/check-role", {
-          withCredentials: true, // Sends cookies with request
-        });
+  // useEffect(() => {
+  //   const checkUserRole = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:8000/check-role", {
+  //         withCredentials: true, // Sends cookies with request
+  //       });
   
-        if (res.data.role !== "admin") {
-          console.log(res.data.role)
-          alert("Access denied! Admins only.");
-          navigate("/ad")// Redirect unauthorized users
-          return;
-        }
-        console.log(res.data.role)
-        setRole(res.data.role);
-      } catch (error) {
-        console.log(error)
-        alert(error.response?.data?.message || "Access denied!");
-        navigate("/login"); // Redirect if token is missing/invalid
-      }
-    };
+  //       if (res.data.role !== "admin") {
+  //         console.log(res.data.role)
+  //         alert("Access denied! Admins only.");
+  //         navigate("/ad")// Redirect unauthorized users
+  //         return;
+  //       }
+  //       console.log(res.data.role)
+  //       setRole(res.data.role);
+  //     } catch (error) {
+  //       console.log(error)
+  //       alert(error.response?.data?.message || "Access denied!");
+  //       navigate("/login"); // Redirect if token is missing/invalid
+  //     }
+  //   };
   
-    checkUserRole();
-  }, []);
+  //   checkUserRole();
+  // }, []);
 
 
   useEffect(() => {
@@ -228,10 +228,6 @@ const HomePage = () => {
                 </div>
               ))}
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              Master <span className="gradient-text">Full Stack</span>{" "}
-              Development
-            </h1>
             <p className="text-gray-300 text-lg md:text-xl max-w-lg">
               Bridge the gap between theory and practice with our hands-on
               learning platform designed for aspiring developers.
