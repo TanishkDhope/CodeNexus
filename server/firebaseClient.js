@@ -1,9 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import {getFirestore} from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import {onSnapshot} from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
+import {collection, getDocs, query, where} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBwsAunM3nRNUHUzFb9yUmKzCeoqigTHOY",
@@ -12,13 +13,20 @@ const firebaseConfig = {
   storageBucket: "megahack-a6ee9.firebasestorage.app",
   messagingSenderId: "613646385300",
   appId: "1:613646385300:web:f0ef5ac76d0330b22c3481",
-  measurementId: "G-10V45TGZJX"
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 export const auth=getAuth(app)
-export const db=getFirestore(app);
 export const googleProvider=new GoogleAuthProvider(app)
+export const db=getFirestore(app);
 
+let users = [];
+
+// Set up real-time listener
+onSnapshot(collection(db, "users"), (snapshot) => {
+    users = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    console.log("🔥 Updated Users:", users);
+});
+
+export { users };
