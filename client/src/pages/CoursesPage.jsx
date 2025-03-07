@@ -5,12 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Clock, Filter, Search, Star, Users } from "lucide-react";
 import Button from "../components/Button";
 import MatrixBackground from "../components/MatrixBackground";
-import img1 from "../assets/Courses/img1.jpeg"
-import img2 from "../assets/Courses/img2.jpeg"
-import img3 from "../assets/Courses/img3.jpeg"
-import img4 from "../assets/Courses/img4.jpeg"
-import img5 from "../assets/Courses/img5.jpeg"
-import img6 from "../assets/Courses/img6.jpeg"
 
 const courses = [
   {
@@ -22,7 +16,7 @@ const courses = [
     duration: "12 weeks",
     students: 3245,
     rating: 4.8,
-    image: img1,
+    image: "/placeholder.svg?height=400&width=600",
     category: "frontend",
     tags: ["HTML", "CSS", "JavaScript", "React"],
   },
@@ -35,7 +29,7 @@ const courses = [
     duration: "10 weeks",
     students: 2187,
     rating: 4.7,
-    image: img2,
+    image: "/placeholder.svg?height=400&width=600",
     category: "backend",
     tags: ["Node.js", "Express", "MongoDB", "REST API"],
   },
@@ -48,7 +42,7 @@ const courses = [
     duration: "16 weeks",
     students: 1876,
     rating: 4.9,
-    image: img3,
+    image: "/placeholder.svg?height=400&width=600",
     category: "fullstack",
     tags: ["JavaScript", "React", "Node.js", "MongoDB"],
   },
@@ -61,7 +55,7 @@ const courses = [
     duration: "8 weeks",
     students: 1243,
     rating: 4.6,
-    image: img4,
+    image: "/placeholder.svg?height=400&width=600",
     category: "devops",
     tags: ["Docker", "Kubernetes", "CI/CD", "AWS"],
   },
@@ -74,7 +68,7 @@ const courses = [
     duration: "10 weeks",
     students: 1987,
     rating: 4.7,
-    image: img5,
+    image: "/placeholder.svg?height=400&width=600",
     category: "mobile",
     tags: ["React Native", "JavaScript", "Mobile", "iOS/Android"],
   },
@@ -87,7 +81,7 @@ const courses = [
     duration: "8 weeks",
     students: 1432,
     rating: 4.9,
-    image: img6,
+    image: "/placeholder.svg?height=400&width=600",
     category: "javascript",
     tags: ["JavaScript", "Design Patterns", "Performance", "Advanced"],
   },
