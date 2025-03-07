@@ -9,7 +9,7 @@ const ResumeBuilder = () => {
   const [mode, setMode] = useState("interactive");
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    email: "",  
     phone: "",
     linkedin: "",
     portfolio: "",
