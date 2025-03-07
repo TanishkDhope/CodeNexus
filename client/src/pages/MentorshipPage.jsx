@@ -337,6 +337,11 @@ export default function MentorshipPage() {
                     <Button variant="neon" size="sm" onClick={() => setSelectedMentor(mentor)}>
                       View Profile
                     </Button>
+                    <Link to='/mentor'>
+                      <Button variant="neon" size="sm" onClick={() => setSelectedMentor(mentor)}>
+                        Call Mentor
+                      </Button>
+                    </Link>                   
                   </div>
                 </div>
               </div>
