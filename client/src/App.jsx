@@ -73,6 +73,7 @@ function App() {
           <Route path="/courses/:courseId" element={<CourseDetailsPage />} />
           <Route path="/enrolled-courses" element={<EnrolledCoursesPage />} />
           <Route path="/course" element={<Course />} />
+        
         </Routes>
         <Footer />
       </div>

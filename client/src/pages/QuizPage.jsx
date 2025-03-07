@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { Clock, CheckCircle, XCircle, ArrowRight, Award, Code, RefreshCw } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const QuizPage = () => {
   const [activeTab, setActiveTab] = useState('daily');
@@ -379,9 +380,12 @@ const QuizPage = () => {
               <p className="text-gray-400 text-sm mb-4">
                 Compete with other developers and see where you rank on our global leaderboard.
               </p>
-              <button className="text-blue-500 text-sm font-medium hover:text-blue-400 transition-colors">
-                View Leaderboard →
-              </button>
+              <Link to="/leaderboard" >
+                <button className="text-blue-500 text-sm font-medium hover:text-blue-400  transition-colors">
+                  View Leaderboard →
+                </button>
+              </Link>
+              
             </div>
 
             <div className="card">
