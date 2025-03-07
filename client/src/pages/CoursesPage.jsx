@@ -147,8 +147,10 @@ export default function CoursesPage() {
               Comprehensive, project-based courses designed to take your development
               skills to the next level.
             </p>
-            <div className="relative max-w-xl mx-auto">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+
+            {/* Search Bar */}
+            <div className="relative max-w-xl mx-auto mb-8">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-gray-400" />
               </div>
               <input
@@ -158,6 +160,16 @@ export default function CoursesPage() {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="block w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-neon-green focus:border-neon-green text-gray-100 placeholder-gray-500 transition-all duration-300"
               />
+            </div>
+
+            {/* Enrolled Courses Tab */}
+            <div className="flex justify-center gap-6 mb-8">
+              <Link
+                to="/enrolled-courses"
+                className="text-lg text-gray-300 hover:text-neon-green transition-all"
+              >
+                Enrolled Courses
+              </Link>
             </div>
           </div>
         </div>
@@ -246,49 +258,12 @@ export default function CoursesPage() {
           </div>
 
           {filteredCourses.length === 0 && (
-            <div className="text-center py-16">
-              <h3 className="text-2xl font-bold mb-2">No courses found</h3>
-              <p className="text-gray-300 mb-6">
-                Try adjusting your search or filter criteria
-              </p>
-              <Button
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedCategory("all");
-                }}
-              >
-                Reset Filters
-              </Button>
+            <div className="text-center mt-8 text-gray-400">
+              <p>No courses match your criteria. Try adjusting your filters or search.</p>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 relative z-10">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-neon-green/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-neon-blue/10 rounded-full blur-3xl"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto bg-gray-900/80 p-8 md:p-12 rounded-lg border border-gray-800 glow-border text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 glow-text">
-              Not Sure Where to Start?
-            </h2>
-            <p className="text-gray-300 mb-8 text-lg">
-              Take our skill assessment to get personalized course recommendations based on your current knowledge and career goals.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="animate-glow">
-                Take Skill Assessment
-              </Button>
-              <Button variant="outline" size="lg">
-                View Learning Paths
-              </Button>
-            </div>
-          </div>
         </div>
       </section>
     </>
   );
 }
-
-

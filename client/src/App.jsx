@@ -20,6 +20,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Leaderboard from './pages/Leaderboard/Leaderboard';
 import UserProfile from './pages/UserProfile/UserProfile';
 import RoadmapHome from './pages/Roadmap/RoadmapHome';
+import CourseDetailsPage from "./pages/CourseDetailsPage";
+import EnrolledCoursesPage from './pages/EnrolledCourses'
+
 
 function App() {
   useEffect(() => {
@@ -61,7 +64,10 @@ function App() {
           
           {/* Added dynamic route for RoadmapsDetail */}          
           <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />
-          <Route path="/Courses" element={<CoursesPage />} />
+          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/courses/:courseId" element={<CourseDetailsPage />} />
+          <Route path="/enrolled-courses" element={<EnrolledCoursesPage />} />
+
         </Routes>
         <Footer />
       </div>

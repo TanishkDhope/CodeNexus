@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from 'firebase/firestore';
-import { doc, getDoc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs } from "firebase/firestore";
 import { getDatabase, ref, get, child, update } from 'firebase/database';
 
 const firebaseConfig = {
@@ -25,4 +25,4 @@ const database = getDatabase(app);
 
 const analytics = getAnalytics(app);
 export default app;
-export { database, ref, get, child, update, db, analytics, doc, getDoc, setDoc, updateDoc, deleteDoc };
+export { database, ref, get, child, update, db, analytics, doc, getDoc, setDoc, updateDoc, deleteDoc ,collection, getDocs };

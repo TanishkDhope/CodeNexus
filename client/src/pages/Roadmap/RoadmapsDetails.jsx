@@ -234,7 +234,7 @@ const roadmaps = [
 ];
 
 const RoadmapsDetail = () => {
-  const roadmap = roadmaps[0];  // Adjust this to change between Frontend, Backend, or Fullstack Roadmap
+  const roadmap = roadmaps[1];  // Adjust this to change between Frontend, Backend, or Fullstack Roadmap
 
 
 
