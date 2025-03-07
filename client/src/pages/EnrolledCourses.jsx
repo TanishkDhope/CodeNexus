@@ -5,10 +5,18 @@ import Button from "../components/Button";
 import MatrixBackground from "../components/MatrixBackground";
 import { db } from "../Firebase/firebase"; // Import firebase config
 import { collection, getDocs } from "firebase/firestore";
+import Course from ".//Course";
+import { useNavigate } from "react-router-dom";
 
 export default function EnrolledCoursesPage() {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+  const navigateToCourse = (courseId) => {
+    // Navigates to a different route, e.g., /home
+    navigate('/Course');
+  };
 
   // Fetch enrolled courses from Firestore
   useEffect(() => {
@@ -65,11 +73,13 @@ export default function EnrolledCoursesPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              
               {enrolledCourses.length > 0 ? (
                 enrolledCourses.map((course) => (
                   <div
                     key={course.id}
                     className="bg-gray-900/80 rounded-lg overflow-hidden border border-gray-800 transform hover:scale-105 transition-all duration-300 shadow-lg"
+                    onClick={navigateToCourse}
                   >
                     <div className="p-6">
                       <h3 className="text-2xl font-bold mb-3 text-white">{course.title}</h3>

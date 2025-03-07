@@ -36,6 +36,7 @@ import AddQuiz from './pages/AddQuiz'
 
 // import Animation from './pages/Checking/Animation'
 import Course from './pages/Course'
+import Mentor from './pages/Mentor'
 import CoursePayment from './pages/CoursePayment'
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
           <Route path="/courses/:courseId" element={<CourseDetailsPage />} />
           <Route path="/enrolled-courses" element={<EnrolledCoursesPage />} />
           <Route path="/course" element={<Course />} />
+          <Route path='/mentor' element={<Mentor />} />
           <Route path="/coursepayment/:courseId" element={<CoursePayment />} />
         
         </Routes>
