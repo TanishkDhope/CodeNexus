@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code, BookOpen, Users, Award, Zap, MessageSquare, Lightbulb, Calendar } from 'lucide-react';
 import CodeEditorButton from '../components/codeEditorButton';
 import ExercisesButton from '../components/ExercisesButton';
+import RoleContext, { useRole } from '../context/RoleContext';
 
 const HomePage = () => {
   const heroRef = useRef(null);
@@ -12,7 +13,9 @@ const HomePage = () => {
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const {role, setUserRole} = useRole()
 
+  
   // Define your four sentences here.
   const sentences = [
     {
