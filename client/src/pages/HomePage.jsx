@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code, BookOpen, Users, Award, Zap, MessageSquare, Lightbulb, Calendar } from 'lucide-react';
+import CodeEditorButton from '../components/codeEditorButton';
+import ExercisesButton from '../components/ExercisesButton';
 
 const HomePage = () => {
   const heroRef = useRef(null);
@@ -156,6 +158,10 @@ const HomePage = () => {
   return (
     <div className="overflow-hidden">
       <canvas id="matrix-canvas" className="fixed top-0 left-0 w-full h-full -z-10 opacity-20"></canvas>
+
+      <CodeEditorButton />
+
+      <ExercisesButton />
 
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-screen flex items-center pt-20 pb-16">
