@@ -28,7 +28,9 @@ const SignUp = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-
+  const handleLogin = async () => {
+    navigate('/login');
+  }
 
   const createUser = async () => {
     try {
@@ -100,7 +102,7 @@ const SignUp = () => {
       
       {/* Glassmorphism container */}
       <div className="bg-white/5 p-8 rounded-lg shadow-lg w-full max-w-md relative backdrop-blur-md border border-gray-700">
-        <h1 className="text-3xl font-bold text-white mb-6 text-center">Signup</h1>
+        <h1 className="text-3xl font-bold text-white mb-6 text-center">Signup / <span onClick={handleLogin} className="cursor-pointer text-green-500 hover:text-green-400">Login</span></h1>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         {success && <p className="text-green-500 text-center mb-4">{success}</p>}
         
