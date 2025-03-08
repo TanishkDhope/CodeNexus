@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Pay() {
   const [amount, setAmount] = useState(500); // Example amount (in INR paisa, so 500 = 5 INR)
@@ -9,6 +10,7 @@ function Pay() {
     email: "john.doe@example.com",
     phone: "1234567890",
   });
+  const navigate = useNavigate();
 
   const handlePayment = async (e) => {
     e.preventDefault(); // Prevent default form submission
@@ -79,6 +81,7 @@ function Pay() {
         alert("Payment failed. Please try again.");
       });
       rzp1.open();
+      navigate('/');
     } catch (error) {
       console.error("Error initiating payment: ", error);
       alert("An error occurred while processing the payment.");
