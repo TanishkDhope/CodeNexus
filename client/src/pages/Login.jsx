@@ -16,6 +16,10 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSignup = () => {
+    navigate('/signup');
+  }
+
   const loginUser = async () => {
     try {
       const result = await signInWithEmailAndPassword(auth, formData.email, formData.password);
@@ -56,7 +60,7 @@ const Login = () => {
     <div className="w-full h-screen flex items-center justify-center bg-black relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-green-900 to-gray-800 opacity-30 blur-2xl animate-pulse"></div>
       <div className="bg-white/5 p-8 rounded-lg shadow-lg w-full max-w-md relative backdrop-blur-md border border-gray-700">
-        <h1 className="text-3xl font-bold text-white mb-6 text-center">Login</h1>
+        <h1 className="text-3xl font-bold text-white mb-6 text-center">Login / <span onClickCapture={handleSignup} className="cursor-pointer text-green-500 hover:text-green-400">Sign Up</span></h1>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         {success && <p className="text-green-500 text-center mb-4">{success}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
