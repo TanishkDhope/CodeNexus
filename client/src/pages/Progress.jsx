@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import UserProfile from "./UserProfile/UserProfile";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import img1 from '../assets/Progress/img1.jpg';
+import img2 from '../assets/Progress/img2.jpg';
+import img4 from '../assets/Progress/img4.jpg';
 import {
   BarChart,
   PieChart,
@@ -336,11 +339,9 @@ const ProgressTracker = () => {
                 <BarChart className="text-blue-500 mr-2" size={20} />
                 Quiz Performance by Topic
               </h3>
-              <div className="h-80 flex items-center justify-center relative bg-gray-900 rounded-lg overflow-hidden">
-                <img src={quizChart} alt="Quiz Performance Chart" className="w-full h-full object-contain" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="text-gray-400 text-sm">Matplotlib chart will be displayed here</p>
-                </div>
+              <div className="h-80 flex items-center justify-center relative  rounded-lg overflow-hidden">
+                <img src={img1} alt="Quiz Performance Chart" className="w-9/10 h-full object-contain" />
+                
               </div>
             </div>
 
@@ -350,11 +351,9 @@ const ProgressTracker = () => {
                 <LineChart className="text-green-500 mr-2" size={20} />
                 Weekly Study Time (minutes)
               </h3>
-              <div className="h-80 flex items-center justify-center relative bg-gray-900 rounded-lg overflow-hidden">
-                <img src={studyTimeChart} alt="Weekly Study Time Chart" className="w-full h-full object-contain" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="text-gray-400 text-sm">Seaborn chart will be displayed here</p>
-                </div>
+              <div className="h-80 flex items-center justify-center relative rounded-lg overflow-hidden">
+                <img src={img2} alt="Weekly Study Time Chart" className="w-9/10 h-full object-contain" />
+                
               </div>
             </div>
 
@@ -364,11 +363,9 @@ const ProgressTracker = () => {
                 <PieChart className="text-purple-500 mr-2" size={20} />
                 Skill Distribution
               </h3>
-              <div className="h-80 flex items-center justify-center relative bg-gray-900 rounded-lg overflow-hidden">
-                <img src={skillChart} alt="Skill Distribution Chart" className="w-full h-full object-contain" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="text-gray-400 text-sm">Matplotlib chart will be displayed here</p>
-                </div>
+              <div className="h-80 flex items-center justify-center relative rounded-lg overflow-hidden">
+                <img src={img4} alt="Skill Distribution Chart" className="w-9/10 h-full object-contain" />
+                
               </div>
             </div>
 
@@ -429,7 +426,7 @@ const ProgressTracker = () => {
               <p className="text-gray-400 mb-4">
                 Strengthen your JavaScript skills with this advanced tutorial on closures and prototypes.
               </p>
-              <Link to="/resources/javascript-advanced" className="inline-block text-blue-500 hover:text-blue-400">
+              <Link to="/courses" className="inline-block text-blue-500 hover:text-blue-400">
                 Start Learning →
               </Link>
             </div>
@@ -441,7 +438,7 @@ const ProgressTracker = () => {
               <p className="text-gray-400 mb-4">
                 Improve your understanding of data structures implementation in C++ with practical examples.
               </p>
-              <Link to="/resources/cpp-data-structures" className="inline-block text-green-500 hover:text-green-400">
+              <Link to="/" className="inline-block text-green-500 hover:text-green-400">
                 Explore Now →
               </Link>
             </div>
@@ -453,7 +450,7 @@ const ProgressTracker = () => {
               <p className="text-gray-400 mb-4">
                 Practice these algorithm challenges to improve your problem-solving skills and coding efficiency.
               </p>
-              <Link to="/challenges/algorithms" className="inline-block text-purple-500 hover:text-purple-400">
+              <Link to="/exercises" className="inline-block text-purple-500 hover:text-purple-400">
                 Take Challenge →
               </Link>
             </div>

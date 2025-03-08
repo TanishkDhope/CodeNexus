@@ -13,11 +13,12 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const {isAuth}=getUserInfo()
+  const [profileOpen, setProfileOpen] = useState(false);
+
 
   const {role, setRole} = useContext(RoleContext);
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Dashboard', path: '/Progress'},
     { name: 'Challenges', path: '/quizzes' },
     { name: 'Courses', path: '/Courses' },
     { name: 'Recruitment', path: '/recruitment' },
@@ -82,21 +83,34 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          {isAuth?(<>
-           
-            <Link to="/progress" className="flex items-center space-x-2 mt-0 px-4 text-gray-300 hover:text-green-400 transition-colors duration-200">
-              <User className="h-6 w-6" />
-              <span>Profile</span>
-          </Link> 
-          
-          </>):(<>
-           
-          <Link to="/login" className="ml-4 btn-primary text-sm py-2">
-            Login
-          </Link>
-          </>)}
-          
-          
+                    {/* Profile Dropdown */}
+                    {isAuth && (
+            <div 
+              className="relative"
+              onMouseEnter={() => setProfileOpen(true)}
+              onMouseLeave={() => setProfileOpen(false)}
+            >
+              <button className="flex mt-2 items-center space-x-2 px-4 text-gray-300 hover:text-green-400 transition-colors duration-200">
+                <User className="h-6 w-6" />
+                <span>Profile</span>
+              </button>
+
+              {/* Dropdown Menu: Appears on hover */}
+              {profileOpen && (
+                <div className="absolute right-0 mt-2 w-40 bg-gray-800 shadow-lg rounded-md overflow-hidden">
+                  <Link to="/progress" className="block px-4 py-2 text-gray-200 hover:bg-gray-700">
+                    Dashboard
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+
+          {!isAuth && (
+            <Link to="/login" className="ml-4 btn-primary text-sm py-2">
+              Login
+            </Link>
+          )}
         </div>
 
         {/* Mobile Navigation Toggle */}

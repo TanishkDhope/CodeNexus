@@ -31,6 +31,7 @@ function Chatbot() {
   }
 
   async function getAIResponse(userQuery) {
+    setInput("")
     try {
       setIsTyping(true)
       const response = await fetch("http://localhost:8000/chat", {
