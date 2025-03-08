@@ -173,7 +173,7 @@ export default function CoursesPage() {
             {/* Enrolled Courses Tab */}
             <div className="flex justify-center gap-6 mb-8">
               <Link
-                to="/enrolled-courses"
+                to={`/enrolled-courses`}
                 className="text-lg text-gray-300 hover:text-neon-green transition-all"
               >
                 Enrolled Courses

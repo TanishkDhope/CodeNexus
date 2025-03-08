@@ -18,7 +18,7 @@ const mentors = [
     specialties: ["React", "JavaScript", "CSS", "Performance Optimization"],
     rating: 4.9,
     reviews: 127,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://images.unsplash.com/photo-1562159278-1253a58da141?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     availability: "Mon, Wed, Fri",
   },
   {
@@ -30,7 +30,7 @@ const mentors = [
     specialties: ["Node.js", "React", "TypeScript", "System Design"],
     rating: 4.8,
     reviews: 93,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     availability: "Tue, Thu, Sat",
   },
   {
@@ -42,7 +42,7 @@ const mentors = [
     specialties: ["Docker", "Kubernetes", "AWS", "CI/CD Pipelines"],
     rating: 4.7,
     reviews: 85,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://plus.unsplash.com/premium_photo-1689977807477-a579eda91fa2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     availability: "Mon, Thu, Sat",
   },
   {
@@ -54,7 +54,7 @@ const mentors = [
     specialties: ["Java", "Spring Boot", "Microservices", "Database Design"],
     rating: 4.9,
     reviews: 112,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://images.unsplash.com/photo-1517677129300-07b130802f46?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     availability: "Wed, Fri, Sun",
   },
   {
@@ -66,7 +66,7 @@ const mentors = [
     specialties: ["React Native", "iOS", "Android", "Mobile UX"],
     rating: 4.8,
     reviews: 76,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     availability: "Tue, Thu, Sun",
   },
   {
@@ -78,7 +78,7 @@ const mentors = [
     specialties: ["UI Design", "UX Research", "CSS", "Accessibility"],
     rating: 4.9,
     reviews: 104,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://images.unsplash.com/photo-1507101105822-7472b28e22ac?q=80&w=2946&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     availability: "Mon, Wed, Fri",
   },
 ];

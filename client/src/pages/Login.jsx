@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useAddInfo } from "../hooks/useAddInfo";
+import { getUserInfo } from "../hooks/getUserInfo";
 import axios from "axios";
 
 const Login = () => {
@@ -51,6 +52,15 @@ const Login = () => {
     setError("");
     loginUser();
   };
+
+   const { isAuth } = getUserInfo();
+
+  useEffect(()=>{
+    if(isAuth)
+    {
+        navigate("/")
+    }
+  })
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-black relative overflow-hidden">

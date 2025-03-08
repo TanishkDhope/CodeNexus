@@ -32,7 +32,6 @@ import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 import Animation from './pages/Checking/Animation'
-import AddQuiz from './pages/AddQuiz'
 import MockInterview from './pages/MockInterview'
 import InterviewHome from './pages/InterviewHome'
 
@@ -87,7 +86,6 @@ function App() {
           <Route path="/Roadmaps" element={<RoadmapHome />} />
           <Route path="/Mentorship" element={<MentorshipPage />} />
           <Route path="/Animation" element={<Animation />} />
-          <Route path="/addquiz" element={<AddQuiz />} />
           
           <Route path="/resume" element={<ResumeBuilder />} />
           {/* Added dynamic route for RoadmapsDetail */}          

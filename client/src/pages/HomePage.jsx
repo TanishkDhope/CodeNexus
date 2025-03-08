@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code, BookOpen, Users, Award, Zap, MessageSquare, Lightbulb, Calendar } from 'lucide-react';
+import { getUserInfo } from '../hooks/getUserInfo';
+
 
 const HomePage = () => {
   const heroRef = useRef(null);
@@ -10,6 +12,9 @@ const HomePage = () => {
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+
+
+  const { isAuth } = getUserInfo();
 
   // Define your four sentences here.
   const sentences = [
@@ -188,7 +193,7 @@ const HomePage = () => {
               <Link to="/signup" className="btn-primary">
                 Get Started
               </Link>
-              <Link to="/about" className="btn-secondary">
+              <Link to="/courses" className="btn-secondary">
                 Learn More
               </Link>
             </div>
@@ -369,7 +374,7 @@ ReactDOM.render(
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-gray-700 overflow-hidden mr-4">
-                  <img src="/placeholder.svg?height=48&width=48" alt="Student" className="w-full h-full object-cover" />
+                  <img src="https://plus.unsplash.com/premium_photo-1689977807477-a579eda91fa2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Student" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h4 className="font-bold">Alex Johnson</h4>
@@ -385,7 +390,7 @@ ReactDOM.render(
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-gray-700 overflow-hidden mr-4">
-                  <img src="/placeholder.svg?height=48&width=48" alt="Student" className="w-full h-full object-cover" />
+                  <img src="https://plus.unsplash.com/premium_photo-1690296204289-14e517830d8e?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Student" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h4 className="font-bold">Samantha Lee</h4>
@@ -401,7 +406,7 @@ ReactDOM.render(
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-gray-700 overflow-hidden mr-4">
-                  <img src="/placeholder.svg?height=48&width=48" alt="Student" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1532170579297-281918c8ae72?q=80&w=2968&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Student" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h4 className="font-bold">Michael Chen</h4>
