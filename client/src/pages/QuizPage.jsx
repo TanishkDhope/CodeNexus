@@ -20,6 +20,7 @@ const QuizPage = () => {
     const [newCorrectAnswer, setNewCorrectAnswer] = useState(null);
     const [newExplanation, setNewExplanation] = useState('');
 
+ 
   // Sample quiz data
   const quizzes = {
     daily: {
@@ -98,6 +99,8 @@ const QuizPage = () => {
   };
 
   useEffect(() => {
+    if(role==="user")
+    {
     // Animate the page elements
     gsap.fromTo(
       '.quiz-header > *',
@@ -115,10 +118,13 @@ const QuizPage = () => {
       '.quiz-content',
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, delay: 0.5, ease: 'power2.out' }
+    
     );
-
+  }
     window.scrollTo({ top: 0, behavior: "smooth" });
+
   }, []);
+
 
   useEffect(() => {
     // Reset quiz state when changing tabs

@@ -1,20 +1,26 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code, BookOpen, Users, Award, Zap, MessageSquare, Lightbulb, Calendar } from 'lucide-react';
+import { getUserInfo } from '../hooks/getUserInfo';
+
 import CodeEditorButton from '../components/codeEditorButton';
 import ExercisesButton from '../components/ExercisesButton';
 import RoleContext, { useRole } from '../context/RoleContext';
 import Chatbot from './Chatbot';
 
 const HomePage = () => {
+
   const heroRef = useRef(null);
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
-  const {role, setUserRole} = useRole()
+  const {role, setUserRole} = useContext(RoleContext);
+
+
+  const { isAuth } = getUserInfo();
 
   
   // Define your four sentences here.
@@ -54,6 +60,8 @@ const HomePage = () => {
   ];
 
   useEffect(() => {
+    if(role==="user")
+    {
     gsap.registerPlugin(ScrollTrigger);
 
     // Hero animation for all children of hero-content
@@ -110,11 +118,16 @@ const HomePage = () => {
           trigger: ctaRef.current,
           start: 'top 80%',
         },
+      
       }
+        
     );
-
+  }
+  let matrixInterval
+  let sentenceInterval
       window.scrollTo({ top: 0, behavior: "smooth" });
-
+  if(role==="user")
+  {
     // Animated background code effect (Matrix effect)
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
@@ -148,20 +161,46 @@ const HomePage = () => {
       }
     }
 
-    const matrixInterval = setInterval(draw, 33);
+     matrixInterval = setInterval(draw, 33);
 
     // Toggle between sentences every 3 seconds.
-    const sentenceInterval = setInterval(() => {
+    sentenceInterval = setInterval(() => {
       setCurrentSentenceIndex((prevIndex) => (prevIndex + 1) % sentences.length);
     }, 3000);
+  }
 
     return () => {
+      if(role==="user")
+      {
       clearInterval(matrixInterval);
       clearInterval(sentenceInterval);
+      }
     };
-  }, [sentences.length]);
+  }, [sentences.length])
+
+  useEffect(()=>{
+    fetch("http://localhost:8000/check-role", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("User Role:", data.role);
+      })
+      .catch((error) => {
+        console.error("Error:", error.message);
+      });
+    
+
+  },[])
 
   return (
+    role === 'user' ? (
     <div className="overflow-hidden">
       <canvas id="matrix-canvas" className="fixed top-0 left-0 w-full h-full -z-10 opacity-20"></canvas>
 
@@ -200,7 +239,7 @@ const HomePage = () => {
               <Link to="/signup" className="btn-primary">
                 Get Started
               </Link>
-              <Link to="/about" className="btn-secondary">
+              <Link to="/courses" className="btn-secondary">
                 Learn More
               </Link>
             </div>
@@ -381,7 +420,7 @@ ReactDOM.render(
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-gray-700 overflow-hidden mr-4">
-                  <img src="/placeholder.svg?height=48&width=48" alt="Student" className="w-full h-full object-cover" />
+                  <img src="https://plus.unsplash.com/premium_photo-1689977807477-a579eda91fa2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Student" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h4 className="font-bold">Alex Johnson</h4>
@@ -397,7 +436,7 @@ ReactDOM.render(
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-gray-700 overflow-hidden mr-4">
-                  <img src="/placeholder.svg?height=48&width=48" alt="Student" className="w-full h-full object-cover" />
+                  <img src="https://plus.unsplash.com/premium_photo-1690296204289-14e517830d8e?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Student" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h4 className="font-bold">Samantha Lee</h4>
@@ -413,7 +452,7 @@ ReactDOM.render(
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-gray-700 overflow-hidden mr-4">
-                  <img src="/placeholder.svg?height=48&width=48" alt="Student" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1532170579297-281918c8ae72?q=80&w=2968&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Student" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h4 className="font-bold">Michael Chen</h4>
@@ -450,6 +489,69 @@ ReactDOM.render(
         </div>
       </section>
     </div>
+    ) : role === 'instructor' ? (
+      <div className="overflow-hidden">
+      {/* Instructor Dashboard Section */}
+      <section className="py-20 bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Welcome to Your Instructor Dashboard
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              As an instructor, you have the ability to manage your courses, mentor students, and track progress.
+            </p>
+          </div>
+  
+          {/* Dashboard Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Course Management */}
+            <div className="feature-card card group">
+              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors">
+                <BookOpen className="text-blue-500" size={24} />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Course Management</h3>
+              <p className="text-gray-400">
+                Create, update, and manage your courses. Track student progress and provide feedback.
+              </p>
+              <Link to="/instructor/courses" className="inline-block mt-4 text-blue-500 hover:text-blue-400">
+                Manage Courses → 
+              </Link>
+            </div>
+  
+            {/* Student List */}
+            <div className="feature-card card group">
+              <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-500/30 transition-colors">
+                <Users className="text-green-500" size={24} />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Student List</h3>
+              <p className="text-gray-400">
+                View the list of students enrolled in your courses and monitor their learning progress.
+              </p>
+              <Link to="/instructor/students" className="inline-block mt-4 text-green-500 hover:text-green-400">
+                View Students → 
+              </Link>
+            </div>
+  
+            {/* Mentorship Program */}
+            <div className="feature-card card group">
+              <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500/30 transition-colors">
+                <Users className="text-purple-500" size={24} />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Mentorship</h3>
+              <p className="text-gray-400">
+                Offer mentorship to students and guide them on their coding journey. Share your expertise.
+              </p>
+              <Link to="/instructor/mentorship" className="inline-block mt-4 text-purple-500 hover:text-purple-400">
+                Become a Mentor → 
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    ) : null
   );
 };
 

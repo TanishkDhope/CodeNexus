@@ -6,6 +6,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import {onSnapshot} from "firebase/firestore";
 import {collection, getDocs, query, where} from "firebase/firestore";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyBwsAunM3nRNUHUzFb9yUmKzCeoqigTHOY",
   authDomain: "megahack-a6ee9.firebaseapp.com",
@@ -23,9 +24,13 @@ export const db=getFirestore(app);
 
 let users = [];
 
-// Set up real-time listener
+
 onSnapshot(collection(db, "users"), (snapshot) => {
-    users = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  users = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  console.log("Users updated:", users); // Debugging purpose
 });
 
-export { users };
+// Function to get latest users
+const getUsers = () => users;
+
+export { getUsers };

@@ -23,6 +23,7 @@ import ProgressTracker from './pages/Progress'
 // import MentorshipPage from './pages/MentorshipPage';
 // import SeminarsPage from './pages/SeminarsPage';
 import Footer from './components/Footer';
+import { RoleProvider } from './context/RoleContext'
 import CoursesPage from './pages/CoursesPage';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -33,7 +34,6 @@ import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 import Animation from './pages/Checking/Animation'
-import AddQuiz from './pages/AddQuiz'
 import MockInterview from './pages/MockInterview'
 import InterviewHome from './pages/InterviewHome'
 
@@ -88,8 +88,7 @@ function App() {
           <Route path="/Roadmaps" element={<RoadmapHome />} />
           <Route path="/Mentorship" element={<MentorshipPage />} />
           <Route path="/Animation" element={<Animation />} />
-          <Route path="/addquiz" element={<AddQuiz />} />
-          <Route path="/Progress" element={<ProgressTracker />} />
+          
           <Route path="/resume" element={<ResumeBuilder />} />
           {/* Added dynamic route for RoadmapsDetail */}          
           <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />

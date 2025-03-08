@@ -198,7 +198,7 @@ ${data.languages}
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-green-200 p-10 transition-all duration-300"
+      className="mt-10 min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-green-200 p-10 transition-all duration-300"
     >
       <h1 className="text-center text-4xl md:text-5xl font-extrabold text-white mb-8">
         AI Resume Builder
