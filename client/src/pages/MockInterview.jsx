@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import robot3 from "../assets/robot3.gif"
+import robot3 from "../assets/robot3.gif";
 
 const MockInterview = () => {
   const { id } = useParams();
@@ -23,8 +23,8 @@ const MockInterview = () => {
     // Load the first question
     setQuestion(questions[0]);
 
+    // Cleanup on component unmount
     return () => {
-      // Cleanup when component unmounts
       if (micStream) {
         micStream.getTracks().forEach(track => track.stop());
       }
@@ -35,7 +35,7 @@ const MockInterview = () => {
   }, [micStream, stream]);
 
   const setupSpeechRecognition = () => {
-    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
       alert('Speech Recognition API is not supported in this browser.');
       return null;
@@ -78,15 +78,20 @@ const MockInterview = () => {
   };
 
   const evaluateAnswer = async (answer) => {
-    const response = await fetch('https://api.gemini.com/evaluate', {
-      method: 'POST',
-      body: JSON.stringify({ answer }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const result = await response.json();
-    console.log(result); // You can show the result to the user
+    try {
+      const response = await fetch('https://api.gemini.com/evaluate', {
+        method: 'POST',
+        body: JSON.stringify({ answer }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      console.log(result);
+      // Display or process the evaluation result as needed
+    } catch (error) {
+      console.error('Error evaluating answer:', error);
+    }
   };
 
   const toggleMic = async () => {
@@ -125,72 +130,68 @@ const MockInterview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-purple-900 to-black text-white flex items-center justify-center py-10">
-      <div className="flex flex-col lg:flex-row items-center w-full max-w-screen-xl px-4 space-y-8 lg:space-y-0 lg:space-x-8">
-        {/* Left side - User's Video */}
-        <div className="relative w-full max-w-3xl">
-          <div className="bg-gradient-to-r from-blue-800 to-purple-800 p-8 rounded-2xl shadow-xl">
-            <h1 className="text-5xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-400 text-center mb-6">
-              Mock Interview - Role {id}
-            </h1>
-            <p className="text-xl text-gray-300 mb-4 text-center">{question}</p>
-
-            {/* User's Video Feed */}
-            <div className="relative mb-4 w-full">
-              <video
-                ref={videoRef}
-                autoPlay
-                muted
-                className="w-full h-80 rounded-xl border-4 border-gradient-to-r from-blue-500 to-purple-600 shadow-2xl"
-              />
-              {/* Mic & Webcam Buttons */}
-              <div className="absolute bottom-4 left-4 flex space-x-4">
-                <button
-                  onClick={toggleWebCam}
-                  className={`${
-                    isWebCamOn ? 'bg-red-500' : 'bg-green-500'
-                  } text-white py-2 px-4 rounded-lg shadow-lg transition duration-300`}
-                >
-                  {isWebCamOn ? 'Turn Off Webcam' : 'Turn On Webcam'}
-                </button>
-
-                <button
-                  onClick={toggleMic}
-                  className={`${
-                    isMicOn ? 'bg-red-500' : 'bg-yellow-500'
-                  } text-white py-2 px-4 rounded-lg shadow-lg transition duration-300`}
-                >
-                  {isMicOn ? 'Turn Off Mic' : 'Turn On Mic'}
-                </button>
+    <div className="min-h-screen  text-white py-10 sm:my-20">
+      <div className="container mx-auto px-4">
+        <h1 className="text-center text-4xl font-bold mb-8">
+          Mock Interview - Role {id}
+        </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Side - Interview Question and Video Feed */}
+          <div className="flex flex-col space-y-6">
+            <div className="bg-gradient-to-r from-blue-800 to-purple-800 p-6 rounded-2xl shadow-xl">
+              <p className="text-xl text-gray-300 text-center">{question}</p>
+              <div className="relative mt-4">
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  muted
+                  className="w-full h-80 object-cover rounded-xl border-4 border-transparent shadow-2xl"
+                />
+                <div className="absolute bottom-4 left-4 flex space-x-4">
+                  <button
+                    onClick={toggleWebCam}
+                    className={`${
+                      isWebCamOn ? 'bg-red-500' : 'bg-green-500'
+                    } text-white py-2 px-4 rounded-lg shadow transition duration-300 hover:opacity-80`}
+                  >
+                    {isWebCamOn ? 'Turn Off Webcam' : 'Turn On Webcam'}
+                  </button>
+                  <button
+                    onClick={toggleMic}
+                    className={`${
+                      isMicOn ? 'bg-red-500' : 'bg-yellow-500'
+                    } text-white py-2 px-4 rounded-lg shadow transition duration-300 hover:opacity-80`}
+                  >
+                    {isMicOn ? 'Turn Off Mic' : 'Turn On Mic'}
+                  </button>
+                </div>
               </div>
             </div>
+            <button
+              onClick={startRecording}
+              className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-8 rounded-2xl shadow-lg hover:from-pink-400 hover:to-purple-400 transition duration-300"
+            >
+              {isRecording ? 'Recording...' : 'Start Speaking'}
+            </button>
           </div>
 
-          {/* Recording Button */}
-          <button
-            onClick={startRecording}
-            className="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-8 rounded-2xl shadow-lg hover:bg-gradient-to-l hover:from-pink-400 hover:to-purple-400 transition duration-300 w-full mt-6"
-          >
-            {isRecording ? 'Recording...' : 'Start Speaking'}
-          </button>
-        </div>
-
-        {/* Right side - Answer Section */}
-        <div className="bg-gradient-to-r from-indigo-700 to-purple-800 p-8 rounded-2xl shadow-xl w-full max-w-3xl mt-6 lg:mt-100">
-          <div className="text-2xl font-semibold text-white mb-4">Your Answer:</div>
-          <div className="text-lg p-4 border-2 border-gradient-to-r from-blue-500 to-purple-600 rounded-md text-gray-100 mt-2 bg-black bg-opacity-40">
-            {answer || "Your speech will appear here..."}
+          {/* Right Side - Answer and Robot */}
+          <div className="flex flex-col space-y-6">
+            <div className="bg-gradient-to-r from-indigo-700 to-purple-800 p-6 rounded-2xl shadow-xl">
+              <h2 className="text-2xl font-semibold text-center mb-4">Your Answer</h2>
+              <div className="text-lg p-4 border-2 border-transparent rounded-md text-gray-100 bg-black bg-opacity-40">
+                {answer || "Your speech will appear here..."}
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <img
+                src={robot3}
+                alt="3D Robot"
+                className="w-64 h-64 rounded-lg shadow-xl transform transition-transform duration-500 hover:scale-110"
+              />
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Right side - 3D Robot */}
-      <div className="absolute w-1/4 flex justify-center items-center hidden lg:flex ml-100 mb-40">
-        <img
-          src= {robot3}
-          alt="3D Robot"
-          className="w-72 h-72 rounded-lg shadow-xl transform transition-transform duration-500 hover:scale-110"
-        />
       </div>
     </div>
   );
