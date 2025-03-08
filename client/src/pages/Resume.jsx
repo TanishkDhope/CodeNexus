@@ -3,7 +3,6 @@ import { FileText, Save } from "lucide-react";
 import { jsPDF } from "jspdf";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useNavigate } from "react-router-dom";
 
 const ResumeBuilder = () => {
   const [mode, setMode] = useState("interactive");
@@ -27,11 +26,13 @@ const ResumeBuilder = () => {
   // Animate overall container on mount
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    gsap.fromTo(
-      containerRef.current,
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
-    );
+    if (containerRef.current) {
+      gsap.fromTo(
+        containerRef.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
+      );
+    }
   }, []);
 
   // Animate resume preview when it appears
@@ -45,7 +46,7 @@ const ResumeBuilder = () => {
     }
   }, [generatedResume]);
 
-  // When mode changes, fill with demo data in auto mode or reset in interactive mode
+  // Fill demo data in auto mode or reset in interactive mode
   useEffect(() => {
     if (mode === "auto") {
       const demoData = {
@@ -64,7 +65,7 @@ const ResumeBuilder = () => {
       setFormData(demoData);
       setGeneratedResume(generateResumeTemplate(demoData));
     } else {
-      // Reset data for interactive mode
+      // Reset for interactive mode
       setFormData({
         name: "",
         email: "",
@@ -194,109 +195,37 @@ ${data.languages}
     setGeneratedResume(null);
   };
 
-  // Inline style objects for layout
-  const containerStyle = {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    width: "100%",
-    gap: "20px",
-  };
-
-  const columnStyle = {
-    flex: "1 1 400px",
-    minWidth: "300px",
-  };
-
-  const buttonStyle = {
-    width: "100%",
-    padding: "12px",
-    border: "none",
-    borderRadius: "5px",
-    fontSize: "16px",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "background 0.3s",
-    marginTop: "10px",
-  };
-
-  const inputStyle = {
-    background: "#0b2827",
-    color: "#a3d9a5",
-    border: "1px solid #28a745",
-    padding: "10px",
-    marginBottom: "10px",
-    borderRadius: "5px",
-    width: "100%",
-    boxSizing: "border-box",
-  };
-
   return (
     <div
       ref={containerRef}
-      style={{
-        background: "#0b0f0f",
-        color: "#a3d9a5",
-        minHeight: "100vh",
-        padding: "40px",
-        fontFamily: "Arial, sans-serif",
-        transition: "background 0.3s",
-      }}
+      className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-green-200 p-10 transition-all duration-300"
     >
-      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
+      <h1 className="text-center text-4xl md:text-5xl font-extrabold text-white mb-8">
         AI Resume Builder
       </h1>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "10px",
-          marginBottom: "20px",
-        }}
-      >
+      <div className="flex justify-center gap-4 mb-8">
         <button
           onClick={() => setMode("interactive")}
-          style={{
-            background: mode === "interactive" ? "#28a745" : "#1a3c34",
-            color: "#a3d9a5",
-            padding: "10px 20px",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            transition: "background 0.3s",
-          }}
+          className={`px-6 py-2 rounded-md font-medium transition-colors duration-300 ${
+            mode === "interactive" ? "bg-green-500 text-gray-900" : "bg-gray-700 text-green-200"
+          }`}
         >
           Interactive Mode
         </button>
         <button
           onClick={() => setMode("auto")}
-          style={{
-            background: mode === "auto" ? "#28a745" : "#1a3c34",
-            color: "#a3d9a5",
-            padding: "10px 20px",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            transition: "background 0.3s",
-          }}
+          className={`px-6 py-2 rounded-md font-medium transition-colors duration-300 ${
+            mode === "auto" ? "bg-green-500 text-gray-900" : "bg-gray-700 text-green-200"
+          }`}
         >
           Auto Mode
         </button>
       </div>
 
       {mode === "interactive" && (
-        <div style={containerStyle}>
-          <div style={columnStyle}>
-            <div
-              style={{
-                background: "#0b1e1d",
-                padding: "20px",
-                borderRadius: "10px",
-                boxShadow: "0 0 15px rgba(0, 255, 128, 0.3)",
-              }}
-            >
+        <div className="flex flex-col md:flex-row justify-center gap-8">
+          <div className="w-full md:w-1/2">
+            <div className="bg-gray-800 p-6 rounded-xl shadow-xl">
               {[
                 "name",
                 "email",
@@ -314,122 +243,69 @@ ${data.languages}
                   key={field}
                   type="text"
                   name={field}
-                  placeholder={
-                    field.charAt(0).toUpperCase() + field.slice(1)
-                  }
+                  placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                   onChange={handleChange}
                   value={formData[field]}
-                  style={inputStyle}
+                  className="w-full p-3 bg-gray-700 text-green-200 border border-gray-600 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
                 />
               ))}
-
-              <button
-                onClick={handleGenerate}
-                style={{
-                  ...buttonStyle,
-                  background: "#28a745",
-                  color: "white",
-                }}
-              >
-                <FileText size={18} style={{ marginRight: "5px" }} />
-                Generate Resume
-              </button>
-              <button
-                onClick={resetForm}
-                style={{
-                  ...buttonStyle,
-                  background: "#dc3545",
-                  color: "white",
-                }}
-              >
-                Reset
-              </button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={handleGenerate}
+                  className="w-full px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white font-medium transition-colors flex items-center justify-center"
+                >
+                  <FileText size={18} className="mr-2" />
+                  Generate Resume
+                </button>
+                <button
+                  onClick={resetForm}
+                  className="w-full px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white font-medium transition-colors flex items-center justify-center"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
           </div>
           {generatedResume && (
             <div
               ref={previewRef}
-              style={{
-                ...columnStyle,
-                background: "#0b2827",
-                borderRadius: "10px",
-                padding: "20px",
-                boxSizing: "border-box",
-                whiteSpace: "pre-wrap",
-                boxShadow: "0 0 15px rgba(0, 255, 128, 0.3)",
-              }}
+              className="w-full md:w-1/2 bg-gray-800 p-6 rounded-xl shadow-xl whitespace-pre-wrap transition-all duration-300"
             >
-              <pre style={{ margin: 0 }}>{generatedResume}</pre>
-              <button
-                onClick={downloadPDF}
-                style={{
-                  ...buttonStyle,
-                  background: "#28a745",
-                  color: "white",
-                }}
-              >
-                <Save size={18} style={{ marginRight: "5px" }} />
-                Download PDF
-              </button>
-              <button
-                onClick={copyToClipboard}
-                style={{
-                  ...buttonStyle,
-                  background: "#17a2b8",
-                  color: "white",
-                }}
-              >
-                Copy to Clipboard
-              </button>
+              <pre className="mb-4">{generatedResume}</pre>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={downloadPDF}
+                  className="w-full px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white font-medium transition-colors flex items-center justify-center"
+                >
+                  <Save size={18} className="mr-2" />
+                  Download PDF
+                </button>
+                <button
+                  onClick={copyToClipboard}
+                  className="w-full px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors flex items-center justify-center"
+                >
+                  Copy to Clipboard
+                </button>
+              </div>
             </div>
           )}
         </div>
       )}
 
       {mode === "auto" && generatedResume && (
-        <div
-          ref={previewRef}
-          style={{
-            maxWidth: "800px",
-            margin: "0 auto",
-            background: "#0b2827",
-            borderRadius: "10px",
-            padding: "20px",
-            whiteSpace: "pre-wrap",
-            boxShadow: "0 0 15px rgba(0, 255, 128, 0.3)",
-          }}
-        >
-          <pre style={{ margin: 0 }}>{generatedResume}</pre>
-          <div style={{ textAlign: "center", marginTop: "10px" }}>
+        <div className="max-w-3xl mx-auto bg-gray-800 p-6 rounded-xl shadow-xl whitespace-pre-wrap transition-all duration-300">
+          <pre className="mb-4">{generatedResume}</pre>
+          <div className="text-center mt-4">
             <button
               onClick={downloadPDF}
-              style={{
-                background: "#28a745",
-                color: "white",
-                border: "none",
-                padding: "12px 20px",
-                cursor: "pointer",
-                borderRadius: "5px",
-                fontSize: "16px",
-                marginRight: "10px",
-                transition: "background 0.3s",
-              }}
+              className="px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white font-medium transition-colors inline-flex items-center mr-4"
             >
-              <Save size={18} style={{ marginRight: "5px" }} />
+              <Save size={18} className="mr-2" />
               Download PDF
             </button>
             <button
               onClick={copyToClipboard}
-              style={{
-                background: "#17a2b8",
-                color: "white",
-                border: "none",
-                padding: "12px 20px",
-                cursor: "pointer",
-                borderRadius: "5px",
-                fontSize: "16px",
-                transition: "background 0.3s",
-              }}
+              className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors inline-flex items-center"
             >
               Copy to Clipboard
             </button>

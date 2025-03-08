@@ -33,6 +33,8 @@ import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 import Animation from './pages/Checking/Animation'
 import AddQuiz from './pages/AddQuiz'
+import MockInterview from './pages/MockInterview'
+import InterviewHome from './pages/InterviewHome'
 
 // import Animation from './pages/Checking/Animation'
 import Course from './pages/Course'
@@ -96,6 +98,8 @@ function App() {
           <Route path="/course" element={<Course />} />
           <Route path='/mentor' element={<Mentor />} />
           <Route path="/coursepayment/:courseId" element={<CoursePayment />} />
+          <Route path="/mi/:id" element={<MockInterview />} />
+          <Route path="/i" element={<InterviewHome />} />
         
         </Routes>
         <Footer />
