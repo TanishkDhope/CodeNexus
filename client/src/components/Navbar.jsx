@@ -12,6 +12,7 @@ const Navbar = () => {
   const {role, setRole} = useContext(RoleContext);
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'Dashboard', path: '/Progress'},
     { name: 'Challenges', path: '/quizzes' },
     { name: 'Courses', path: '/Courses' },
     { name: 'Recruitment', path: '/recruitment' },

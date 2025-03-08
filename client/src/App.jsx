@@ -16,8 +16,9 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { Test } from './pages/test';
 import Editor from './pages/Editor';
-import ProgressTracker from "./pages/Progress";
+
 import ResumeBuilder from "./pages/Resume"; 
+import ProgressTracker from './pages/Progress'
 // import AboutPage from './pages/AboutPage';
 // import MentorshipPage from './pages/MentorshipPage';
 // import SeminarsPage from './pages/SeminarsPage';
@@ -88,7 +89,7 @@ function App() {
           <Route path="/Mentorship" element={<MentorshipPage />} />
           <Route path="/Animation" element={<Animation />} />
           <Route path="/addquiz" element={<AddQuiz />} />
-          
+          <Route path="/Progress" element={<ProgressTracker />} />
           <Route path="/resume" element={<ResumeBuilder />} />
           {/* Added dynamic route for RoadmapsDetail */}          
           <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />
