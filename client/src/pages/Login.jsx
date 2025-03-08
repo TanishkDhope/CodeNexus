@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +33,7 @@ const Login = () => {
   const handleGoogleSignup = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      console.log(result)
       const authInfo = { userId: result.user.uid, email: result.user.email, isAuth: true };
       localStorage.setItem("authInfo", JSON.stringify(authInfo));
       setSuccess("Login successful!");
@@ -54,6 +55,8 @@ const Login = () => {
   };
 
    const { isAuth } = getUserInfo();
+
+   
 
   useEffect(()=>{
     if(isAuth)

@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 const razorpay = new Razorpay({
   key_id: "rzp_test_rZy8sy8h3lgvoA",
-    key_secret: "UspGlVHcWKyNK4j3PAhfOvJM"
+  key_secret: "UspGlVHcWKyNK4j3PAhfOvJM"
 });
 
 app.listen(port, () => {

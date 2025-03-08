@@ -22,6 +22,7 @@ import ResumeBuilder from "./pages/Resume";
 // import MentorshipPage from './pages/MentorshipPage';
 // import SeminarsPage from './pages/SeminarsPage';
 import Footer from './components/Footer';
+import { RoleProvider } from './context/RoleContext'
 import CoursesPage from './pages/CoursesPage';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
