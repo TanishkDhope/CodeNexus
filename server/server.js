@@ -11,7 +11,11 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 app.use(express.json());
-app.use(cors())
+app.use(cors(
+  {
+    origin: "http://localhost:5174",
+  }
+))
 
 const genAI = new GoogleGenerativeAI(process.env.GEN_AI_SECRET);
 

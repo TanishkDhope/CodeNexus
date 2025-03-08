@@ -109,6 +109,8 @@ const HomePage = () => {
       }
     );
 
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
     // Animated background code effect (Matrix effect)
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
