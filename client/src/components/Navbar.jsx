@@ -6,6 +6,7 @@ import { getUserInfo } from '../hooks/getUserInfo';
 import { get } from 'firebase/database';
 import { useRole } from '../context/RoleContext';
 import RoleContext from '../context/RoleContext'
+import { useNavigate } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -14,7 +15,7 @@ const Navbar = () => {
   const location = useLocation();
   const {isAuth}=getUserInfo()
   const [profileOpen, setProfileOpen] = useState(false);
-
+  const navigate = useNavigate();
 
   const {role, setRole} = useContext(RoleContext);
   const navLinks = [
@@ -63,6 +64,10 @@ const Navbar = () => {
     }
   }, [isOpen]);
 
+  const navigateToProfile = () => {
+    navigate('/userprofile');
+  };
+
   return (
     role === 'user' ? (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-gray-900/90 backdrop-blur-md py-2 shadow-lg' : 'bg-transparent py-4'}`}>
@@ -92,7 +97,7 @@ const Navbar = () => {
             >
               <button className="flex mt-2 items-center space-x-2 px-4 text-gray-300 hover:text-green-400 transition-colors duration-200">
                 <User className="h-6 w-6" />
-                <span>Profile</span>
+                <span onClick={navigateToProfile}>Profile</span>
               </button>
 
               {/* Dropdown Menu: Appears on hover */}
