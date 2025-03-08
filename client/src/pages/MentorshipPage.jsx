@@ -1,12 +1,13 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState,useRef , useContext } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Calendar, Check, Star } from "lucide-react";
 import Button from "../components/Button";
 import MatrixBackground from "../components/MatrixBackground";
-import {io} from "socket.io-client";
-
+import  {useRole} from "../context/RoleContext";
+import RoleContext from '../context/RoleContext'
+import { useNavigate } from "react-router-dom";
 // Mentor data
 const mentors = [
   {
@@ -186,7 +187,7 @@ function MentorProfile({ mentor, onClose }) {
 
 export default function MentorshipPage() {
   const [selectedMentor, setSelectedMentor] = useState(null);
-
+  const {role, setRole} = useContext(RoleContext);  
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -217,7 +218,13 @@ export default function MentorshipPage() {
     );
   }, []);
 
+  const navigate = useNavigate();
+  const navigateToMentor = () => {
+    navigate('/mentor');
+  };
+
   return (
+    role  === 'user' ? (
     <>
       <MatrixBackground opacity={0.03} />
 
@@ -497,5 +504,123 @@ export default function MentorshipPage() {
         <MentorProfile mentor={selectedMentor} onClose={() => setSelectedMentor(null)} />
       )}
     </>
+    ) : role === 'instructor' ? (
+      <div>
+        {/* Instructor Dashboard Content */}
+        <section className="pt-32 pb-16 md:pt-40 md:pb-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center">
+              <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-500 neon-glow">
+                Instructor Dashboard
+              </h1>
+              <p className="text-xl text-gray-300 leading-relaxed mb-8">
+                Welcome back, Instructor! Manage your profile, view your mentee progress, and track your sessions.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Instructor Profile Section */}
+        <section className="py-16 bg-gray-900/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-500 neon-glow">
+              Your Profile
+            </h2>
+            <div className="flex justify-center">
+              <div className="bg-gray-900/80 p-6 rounded-xl border border-gray-800 text-center shadow-lg">
+                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
+                  <img
+                    src="/placeholder.svg" // Replace with instructor's profile image
+                    alt="Instructor"
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Instructor Name</h3>
+                <p className="text-gray-300">Full Stack Developer</p>
+                <p className="text-gray-300 mt-4">I specialize in guiding learners through modern web development, offering tailored advice, code reviews, and career guidance.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Mentee Overview Section */}
+        <section className="py-16 bg-gray-900/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-500 neon-glow">
+              Your Mentees
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Mentee Cards */}
+              <div className="bg-gray-900/80 rounded-xl p-6 border border-gray-800">
+                <h3 className="text-xl font-bold">Mentee Name</h3>
+                <p className="text-gray-300">Frontend Developer</p>
+                <p className="text-gray-300 mt-2">Currently working on React and JavaScript. Looking for guidance on performance optimization and best practices.</p>
+                <Button variant="neon" size="sm" className="mt-4">View Progress</Button>
+              </div>
+              {/* Add more mentee cards here */}
+            </div>
+          </div>
+        </section>
+
+        {/* Session Management Section */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-500 neon-glow">
+              Upcoming Sessions
+            </h2>
+            <div className="bg-gray-900/80 p-6 rounded-xl border border-gray-800 shadow-lg">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h3 className="text-xl font-bold">Session with Mentee Name</h3>
+                  <p className="text-gray-300">Topic: React Performance Optimization</p>
+                  <p className="text-gray-400 text-sm">Scheduled for: March 10th, 2025</p>
+                </div>
+                <Button variant="neon" size="sm" onClick={navigateToMentor}>Join Session</Button>
+              </div>
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h3 className="text-xl font-bold">Session with Mentee Name</h3>
+                  <p className="text-gray-300">Topic: Backend Architecture</p>
+                  <p className="text-gray-400 text-sm">Scheduled for: March 12th, 2025</p>
+                </div>
+                <Button variant="neon" size="sm">Join Session</Button>
+              </div>
+              {/* Add more sessions here */}
+            </div>
+          </div>
+        </section>
+
+        {/* Instructor Feedback Section */}
+        <section className="py-16 bg-gray-900/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-500 neon-glow">
+              Feedback from Mentees
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Feedback Cards */}
+              <div className="bg-gray-900/60 p-6 rounded-xl border border-gray-800 shadow-lg">
+                <div className="mb-4">
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                </div>
+                <p className="text-gray-300 mb-4">"Working with this instructor has been amazing. I've learned so much about modern JavaScript and feel confident applying these skills to my work."</p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-gray-700 rounded-full mr-3"></div>
+                  <div>
+                    <div className="font-semibold">Mentee Name</div>
+                    <div className="text-gray-400 text-sm">Frontend Developer</div>
+                  </div>
+                </div>
+              </div>
+              {/* Add more feedback cards here */}
+            </div>
+          </div>
+        </section>
+      </div>
+    ) : null
+
   );
 }
