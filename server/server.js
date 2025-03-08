@@ -8,7 +8,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
 
-const app = express();
+const app = express();  // Move this line up
 const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cors(
@@ -34,7 +34,7 @@ const generationConfig = {
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5180",
     credentials: true,
   })
 );
@@ -72,6 +72,58 @@ app.get("/check-role", (req, res) => {
     if (err) return res.status(403).json({ message: "Invalid token" });
     res.json({ role: decoded.role });
   });
+});
+
+// **Chatbot Route**
+app.post("/chat", async (req, res) => {
+  try {
+    const { message } = req.body;
+    if (!message) return res.status(400).json({ error: "Message is required" });
+
+    const chatSession = model.startChat({
+      generationConfig,
+      history: [
+        {
+          role: "user",
+          parts: [
+            {text: "hi"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "{\n\"response\": \"Okay\"\n}"},
+          ],
+        },
+        {
+          role: "user",
+          parts: [
+            {text: "how are you"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "{\n\"response\": \"I am doing well, thank you for asking.\"\n}"},
+          ],
+        },
+      ],
+    });
+  
+    const result = await chatSession.sendMessage(message);
+    const botResponse = result.response.text();
+try {
+  const parsedResponse = JSON.parse(botResponse); // Try parsing the JSON
+  res.json(parsedResponse); // Send parsed JSON
+} catch (error) {
+  res.json({ response: botResponse }); // If parsing fails, return as plain text
+}
+console.log(botResponse);
+
+  } catch (error) {
+    console.error("Chatbot error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.get("/", (req, res) => {
