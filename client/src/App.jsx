@@ -32,7 +32,7 @@ import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 import Animation from './pages/Checking/Animation'
-import ProgressTracker from './pages/Progress'
+import Chatbot from './pages/Chatbot';
 
 // import Animation from './pages/Checking/Animation'
 import Course from './pages/Course'
@@ -92,7 +92,7 @@ function App() {
           <Route path="/enrolled-courses" element={<EnrolledCoursesPage />} />
           <Route path="/course" element={<Course />} />
           <Route path="/coursepayment/:courseId" element={<CoursePayment />} />
-        
+           <Route path="/chatbot-home" element={<Chatbot />} />
         </Routes>
         <Footer />
       </div>

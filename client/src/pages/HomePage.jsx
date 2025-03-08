@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CodeEditorButton from "../components/codeEditorButton";
 import axios from "axios";
+
 import {
   Code,
   BookOpen,
@@ -15,6 +16,7 @@ import {
   Lightbulb,
   Calendar,
 } from "lucide-react";
+import Chatbot from "./Chatbot";
 
 const HomePage = () => {
   const heroRef = useRef(null);
@@ -202,7 +204,7 @@ const HomePage = () => {
         id="matrix-canvas"
         className="fixed top-0 left-0 w-full h-full -z-10 opacity-20"
       ></canvas>
-      <CodeEditorButton />
+       <CodeEditorButton />
 
       {/* Hero Section */}
       <section
@@ -544,19 +546,15 @@ ReactDOM.render(
       </section>
       <div className="relative">
       {/* Button to open chatbot */}
+      {/*
       <button
         onClick={() => setShowChat(!showChat)}
         className="fixed bottom-5 right-5 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600 transition"
       >
         {showChat ? "Close Chat" : "Open Chat"}
       </button>
-
-      {/* Chatbot pop-up */}
-      {showChat && (
-        <div className="fixed bottom-16 right-5 bg-white p-4 shadow-lg rounded-lg w-80 h-96">
-          <Chatbot />
-        </div>
-      )}
+      */}
+<Chatbot />
     </div>
     </div>
   );
