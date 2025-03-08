@@ -2,13 +2,18 @@ import { useState, useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Code, Menu, X, User } from "lucide-react";
+import { getUserInfo } from '../hooks/getUserInfo';
+import { get } from 'firebase/database';
 import { useRole } from '../context/RoleContext';
 import RoleContext from '../context/RoleContext'
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const {isAuth}=getUserInfo()
+
   const {role, setRole} = useContext(RoleContext);
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -76,14 +81,21 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
+          {isAuth?(<>
+           
+            <Link to="/progress" className="flex items-center space-x-2 mt-0 px-4 text-gray-300 hover:text-green-400 transition-colors duration-200">
+              <User className="h-6 w-6" />
+              <span>Profile</span>
+          </Link> 
+          
+          </>):(<>
+           
           <Link to="/login" className="ml-4 btn-primary text-sm py-2">
             Login
           </Link>
-
-          {/* <Link to="/profile" className="flex items-center space-x-2 mt-4 px-4 text-gray-300 hover:text-green-400 transition-colors duration-200">
-              <User className="h-6 w-6" />
-              <span>Profile</span>
-          </Link> */}
+          </>)}
+          
+          
         </div>
 
         {/* Mobile Navigation Toggle */}
@@ -142,14 +154,13 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <Link to="/login" className="ml-4 btn-primary text-sm py-2">
-            Login
-          </Link>
-
-          {/* <Link to="/profile" className="flex items-center space-x-2 mt-4 px-4 text-gray-300 hover:text-green-400 transition-colors duration-200">
+          {isAuth?(<Link to="/profile" className="flex items-center space-x-2 mt-0 px-4 text-gray-300 hover:text-green-400 transition-colors duration-200">
               <User className="h-6 w-6" />
               <span>Profile</span>
-          </Link> */}
+          </Link>):(<Link to="/login" className="ml-4 btn-primary text-sm py-2">
+            Login
+          </Link>)} 
+
         </div>
 
         {/* Mobile Navigation Toggle */}

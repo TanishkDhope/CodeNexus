@@ -1,22 +1,16 @@
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext } from "react";
 
-// Create the context
 const RoleContext = createContext();
 
-// RoleProvider component to provide the role context
 export const RoleProvider = ({ children }) => {
-  const [role, setRole] = useState('user'); // Default role is 'instructor'
+  const [role, setUserRole] = useState("user");
 
   return (
-    <RoleContext.Provider value={{ role, setRole }}>
+    <RoleContext.Provider value={{ role, setUserRole }}>
       {children}
     </RoleContext.Provider>
   );
 };
 
-// Custom hook to use role context
-export const useRole = () => {
-  return useContext(RoleContext);
-};
-
+export const useRole = () => useContext(RoleContext);
 export default RoleContext;

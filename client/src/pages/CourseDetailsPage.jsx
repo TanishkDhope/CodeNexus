@@ -59,7 +59,7 @@ const CourseDetailsPage = () => {
 
   const navigate = useNavigate();
   const Coursepay = () => {
-    navigate("/CoursePayment", { state: { courseId } });
+    navigate(`/CoursePayment/${courseId}`);
   };
 
   if (!course) {
@@ -148,7 +148,7 @@ const CourseDetailsPage = () => {
 
           {/* Enroll CTA */}
           <section className="text-center mt-8">
-            <Button variant="neon" size="lg" className="bg-gradient-to-r from-pink-500 to-purple-500" onClick={Coursepay}>
+            <Button variant="neon" size="lg" className="rounded-full pl-3 pr-3 bg-gradient-to-r from-pink-500 to-purple-500" onClick={Coursepay}>
               Enroll Now <ArrowRight className="inline ml-2" />
             </Button>
           </section>

@@ -3,20 +3,19 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { users } from "./firebaseClient.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getUsers } from "./firebaseClient.js"; 
+
 
 dotenv.config();
-
-const app = express();  // Move this line up
+const app = express();
 const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cors(
   {
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5173",
   }
 ))
-
 const genAI = new GoogleGenerativeAI(process.env.GEN_AI_SECRET);
 
 const model = genAI.getGenerativeModel({
@@ -42,18 +41,23 @@ app.use(express.json());
 app.use(cookieParser());
 
 const generateToken = (role) => {
-  return jwt.sign({ role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  return jwt.sign({ role }, "Tanishk", { expiresIn: "1h" });
 };
 
 app.post("/login", (req, res) => {
+  const users=getUsers()
   const { email } = req.body;
+  console.log(users)
   const user = users.find((u) => u.email === email);
+
 
   if (!user) {
     return res.status(401).json({ message: "User not found" });
   }
+  console.log(user)
 
   const token = generateToken(user.role);
+  console.log(token)
 
   res.cookie("authToken", token, {
     httpOnly: true,
@@ -66,9 +70,10 @@ app.post("/login", (req, res) => {
 // **Role Check Route**
 app.get("/check-role", (req, res) => {
   const token = req.cookies.authToken;
+  console.log(token)
   if (!token) return res.status(401).json({ message: "Unauthorized" });
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, "Tanishk", (err, decoded) => {
     if (err) return res.status(403).json({ message: "Invalid token" });
     res.json({ role: decoded.role });
   });

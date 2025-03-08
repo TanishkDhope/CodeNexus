@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useAddInfo } from "../hooks/useAddInfo";
+import { getUserInfo } from "../hooks/getUserInfo";
 import axios from "axios";
 
 const Login = () => {
@@ -15,6 +16,10 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  const handleSignup = () => {
+    navigate('/signup');
+  }
 
   const loginUser = async () => {
     try {
@@ -32,6 +37,7 @@ const Login = () => {
   const handleGoogleSignup = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      console.log(result)
       const authInfo = { userId: result.user.uid, email: result.user.email, isAuth: true };
       localStorage.setItem("authInfo", JSON.stringify(authInfo));
       setSuccess("Login successful!");
@@ -52,11 +58,22 @@ const Login = () => {
     loginUser();
   };
 
+   const { isAuth } = getUserInfo();
+
+   
+
+  useEffect(()=>{
+    if(isAuth)
+    {
+        navigate("/")
+    }
+  })
+
   return (
     <div className="w-full h-screen flex items-center justify-center bg-black relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-green-900 to-gray-800 opacity-30 blur-2xl animate-pulse"></div>
       <div className="bg-white/5 p-8 rounded-lg shadow-lg w-full max-w-md relative backdrop-blur-md border border-gray-700">
-        <h1 className="text-3xl font-bold text-white mb-6 text-center">Login</h1>
+        <h1 className="text-3xl font-bold text-white mb-6 text-center">Login / <span onClickCapture={handleSignup} className="cursor-pointer text-green-500 hover:text-green-400">Sign Up</span></h1>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         {success && <p className="text-green-500 text-center mb-4">{success}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
