@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { Briefcase, Search, MapPin, Building, Clock, Filter, ChevronDown, Star, Bookmark, BookmarkCheck } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
+import MockInterButton from '../components/MockInterButton';
+
 const RecruitmentPage = () => {
   const [activeTab, setActiveTab] = useState('jobs');
   const [searchTerm, setSearchTerm] = useState('');
@@ -93,6 +95,8 @@ const RecruitmentPage = () => {
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, delay: 0.5, ease: 'power2.out' }
     );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const toggleSaveJob = (jobId) => {
@@ -111,6 +115,7 @@ const RecruitmentPage = () => {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
+      <MockInterButton />
       <div className="container mx-auto px-4">
         <div className="recruitment-header text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">

@@ -32,10 +32,13 @@ import CourseDetailsPage from "./pages/CourseDetailsPage";
 import EnrolledCoursesPage from './pages/EnrolledCourses';
 import MentorshipPage from './pages/MentorshipPage'
 import Animation from './pages/Checking/Animation'
-import Chatbot from './pages/Chatbot';
+import AddQuiz from './pages/AddQuiz'
+import MockInterview from './pages/MockInterview'
+import InterviewHome from './pages/InterviewHome'
 
 // import Animation from './pages/Checking/Animation'
 import Course from './pages/Course'
+import Mentor from './pages/Mentor'
 import CoursePayment from './pages/CoursePayment'
 
 function App() {
@@ -70,7 +73,7 @@ function App() {
           <Route path="/recruitment" element={<RecruitmentPage />} />
           <Route path="/hackathons" element={<HackathonPage />} />
           <Route path="/community" element={<CommunityPage />} />
-          <Route path='/ex' element={<Excercises />} />
+          <Route path='/exercises' element={<Excercises />} />
           <Route path='/ad' element={<AccessDenied />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
@@ -84,6 +87,8 @@ function App() {
           <Route path="/Roadmaps" element={<RoadmapHome />} />
           <Route path="/Mentorship" element={<MentorshipPage />} />
           <Route path="/Animation" element={<Animation />} />
+          <Route path="/addquiz" element={<AddQuiz />} />
+          
           <Route path="/resume" element={<ResumeBuilder />} />
           {/* Added dynamic route for RoadmapsDetail */}          
           <Route path="/Roadmaps/:id" element={<RoadmapsDetail />} />
@@ -91,8 +96,11 @@ function App() {
           <Route path="/courses/:courseId" element={<CourseDetailsPage />} />
           <Route path="/enrolled-courses" element={<EnrolledCoursesPage />} />
           <Route path="/course" element={<Course />} />
+          <Route path='/mentor' element={<Mentor />} />
           <Route path="/coursepayment/:courseId" element={<CoursePayment />} />
-           <Route path="/chatbot-home" element={<Chatbot />} />
+          <Route path="/mi/:id" element={<MockInterview />} />
+          <Route path="/i" element={<InterviewHome />} />
+        
         </Routes>
         <Footer />
       </div>

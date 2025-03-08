@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect} from "react";
 import { Link } from "react-router-dom";
 import { FaLaptopCode, FaServer, FaMobileAlt, FaDatabase, FaCloud, FaShieldAlt, FaGithub } from 'react-icons/fa';
 
@@ -66,6 +66,10 @@ const roadmaps = [
 ];
 
 const RoadmapsHome = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+  
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white p-8 sm:p-10 lg:p-14 mt-20 ">
       <h1 className="text-5xl font-extrabold text-center mb-10 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-500">

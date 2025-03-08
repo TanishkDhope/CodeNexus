@@ -114,6 +114,8 @@ export default function CoursesPage() {
         ease: "power2.out",
       }
     );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   // Filter courses based on search term and category

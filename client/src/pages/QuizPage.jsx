@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState , useContext } from 'react';
 import { gsap } from 'gsap';
 import { Clock, CheckCircle, XCircle, ArrowRight, Award, Code, RefreshCw } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useRole } from '../context/RoleContext';
+import RoleContext from '../context/RoleContext'
 
 const QuizPage = () => {
   const [activeTab, setActiveTab] = useState('daily');
@@ -10,6 +12,13 @@ const QuizPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
+  const {role, setRole} = useContext(RoleContext);
+
+    // State for the instructor to add a new question
+    const [newQuestion, setNewQuestion] = useState('');
+    const [newOptions, setNewOptions] = useState(['', '', '', '']);
+    const [newCorrectAnswer, setNewCorrectAnswer] = useState(null);
+    const [newExplanation, setNewExplanation] = useState('');
 
   // Sample quiz data
   const quizzes = {
@@ -107,6 +116,8 @@ const QuizPage = () => {
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, delay: 0.5, ease: 'power2.out' }
     );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
@@ -155,6 +166,94 @@ const QuizPage = () => {
       ease: 'power2.out',
     });
   };
+
+   // Function to handle form submission (instructor adding a question)
+   const handleAddQuestion = () => {
+    const newQuizData = {
+      question: newQuestion,
+      options: newOptions,
+      correctAnswer: newCorrectAnswer,
+      explanation: newExplanation
+    };
+    const updatedQuizzes = { ...quizzes };
+    updatedQuizzes[activeTab].questions.push(newQuizData);  // Adding the new question to the active quiz
+
+    // Reset form fields
+    setNewQuestion('');
+    setNewOptions(['', '', '', '']);
+    setNewCorrectAnswer(null);
+    setNewExplanation('');
+
+    alert('New question added!');
+  };
+
+  const renderInstructorForm = () => {
+    return (
+      <div className="instructor-form bg-gray-900 rounded-lg p-6 shadow-lg mt-8">
+        <h3 className="text-2xl font-bold mb-4">Add a New Question</h3>
+        <form>
+          <div className="mb-4">
+            <label className="block text-gray-300 mb-2">Question</label>
+            <textarea
+              value={newQuestion}
+              onChange={(e) => setNewQuestion(e.target.value)}
+              className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-gray-300"
+              placeholder="Enter your question here"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-300 mb-2">Options</label>
+            {newOptions.map((option, index) => (
+              <input
+                key={index}
+                type="text"
+                value={option}
+                onChange={(e) => {
+                  const updatedOptions = [...newOptions];
+                  updatedOptions[index] = e.target.value;
+                  setNewOptions(updatedOptions);
+                }}
+                className="w-full p-3 mb-2 bg-gray-800 border border-gray-700 rounded-md text-gray-300"
+                placeholder={`Option ${String.fromCharCode(65 + index)}`}
+              />
+            ))}
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-300 mb-2">Correct Answer (0-3)</label>
+            <input
+              type="number"
+              value={newCorrectAnswer}
+              onChange={(e) => setNewCorrectAnswer(Number(e.target.value))}
+              min="0"
+              max="3"
+              className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-gray-300"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-300 mb-2">Explanation</label>
+            <textarea
+              value={newExplanation}
+              onChange={(e) => setNewExplanation(e.target.value)}
+              className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-gray-300"
+              placeholder="Enter the explanation for the correct answer"
+            />
+          </div>
+
+          <button
+            type="button"
+            onClick={handleAddQuestion}
+            className="w-full p-3 bg-green-500 text-white font-bold rounded-md"
+          >
+            Add Question
+          </button>
+        </form>
+      </div>
+    );
+  };
+
 
   const nextQuestion = () => {
     const currentQuiz = quizzes[activeTab];
@@ -300,6 +399,7 @@ const QuizPage = () => {
   };
 
   return (
+    role === 'user' ? (
     <div className="min-h-screen pt-20 pb-16">
       <div className="container mx-auto px-4">
         <div className="quiz-header text-center mb-12">
@@ -365,9 +465,12 @@ const QuizPage = () => {
               <p className="text-gray-400 text-sm mb-4">
                 Practice with unlimited quizzes on specific topics to strengthen your skills.
               </p>
-              <button className="text-green-500 text-sm font-medium hover:text-green-400 transition-colors">
-                Start Practice →
-              </button>
+              <Link to = '/exercises'>
+                <button className="text-green-500 text-sm font-medium hover:text-green-400 transition-colors">
+                  Start Practice →
+                </button>
+              </Link>
+              
             </div>
 
             <div className="card">
@@ -406,6 +509,32 @@ const QuizPage = () => {
         </div>
       </div>
     </div>
+    ) : role === 'instructor' ? (
+      <div className="min-h-screen pt-20 pb-16">
+        <div className="container mx-auto px-4">
+          <div className="quiz-header text-center mb-12">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              Instructor Dashboard
+            </h1>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              As an instructor, you can add quiz questions to the challenges below.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="quiz-tabs flex border-b border-gray-700 mb-8">
+              {/* Tabs for daily, weekly, and monthly quizzes */}
+              <button onClick={() => setActiveTab('daily')}>Daily Challenge</button>
+              <button onClick={() => setActiveTab('weekly')}>Weekly Quiz</button>
+              <button onClick={() => setActiveTab('monthly')}>Monthly Challenge</button>
+            </div>
+
+            {/* Render Instructor Form */}
+            {renderInstructorForm()}
+          </div>
+        </div>
+      </div>
+    ) : null
   );
 };
 
