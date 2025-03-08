@@ -42,23 +42,13 @@ const model = genAI.getGenerativeModel({
 });
 
 const generationConfig = {
-    temperature: 1,
-    topP: 0.95,
-    topK: 40,
-    maxOutputTokens: 8192,
-    responseMimeType: "application/json",
-    responseSchema: {
-      type: "object",
-      properties: {
-        problem_title: {
-          type: "string"
-        },
-        problem_details: {
-          type: "string"
-        }
-      }
-    },
-  };
+  temperature: 1,
+  topP: 0.95,
+  topK: 40,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
+
   
 let data = {}; // Variable to store scraped data
 

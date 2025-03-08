@@ -116,23 +116,61 @@ ${data.languages}
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleGenerate = () => {
-    setGeneratedResume(generateResumeTemplate(formData));
+  const handleGenerate = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/generate-resume", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.text();
+      console.log(data)
+      if (data) {
+        setGeneratedResume(data);
+      }
+    } catch (error) {
+      console.error("Error generating resume:", error);
+    }
   };
+  
 
   const downloadPDF = () => {
     if (!generatedResume) return;
+  
     const pdf = new jsPDF();
+    let y = 20; // Starting Y position
+  
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(18);
-    pdf.text("Resume", 20, 20);
-    pdf.setFont("helvetica", "normal");
+    pdf.text("Resume", 20, y);
+    y += 10;
+  
     pdf.setFontSize(12);
-    const lines = pdf.splitTextToSize(generatedResume, 180);
-    pdf.text(lines, 20, 30);
+    const lines = generatedResume.split("\n");
+  
+    lines.forEach((line) => {
+      if (line.trim() === "") {
+        y += 5; // Add extra spacing for empty lines
+        return;
+      }
+  
+      if (line.match(/^\*\*(.*?)\*\*/)) {
+        // Detect bold text (assuming AI outputs **bold text**)
+        pdf.setFont("helvetica", "bold");
+        line = line.replace(/\*\*(.*?)\*\*/, "$1"); // Remove ** from bold text
+      } else {
+        pdf.setFont("helvetica", "normal");
+      }
+  
+      const wrappedLines = pdf.splitTextToSize(line, 180);
+      pdf.text(wrappedLines, 20, y);
+      y += wrappedLines.length * 6; // Adjust Y based on wrapped lines
+    });
+  
     pdf.save("resume.pdf");
   };
-
+  
   const copyToClipboard = () => {
     if (generatedResume) {
       navigator.clipboard.writeText(generatedResume);
