@@ -5,15 +5,10 @@ const RoleContext = createContext();
 
 // RoleProvider component to provide the role context
 export const RoleProvider = ({ children }) => {
-  const [role, setRole] = useState('instructor'); // default role is 'user'
-
-  // Function to set role (can be called on login or role change)
-  const setUserRole = (newRole) => {
-    setRole(newRole);
-  };
+  const [role, setRole] = useState('user'); // Default role is 'instructor'
 
   return (
-    <RoleContext.Provider value={{ role, setUserRole }}>
+    <RoleContext.Provider value={{ role, setRole }}>
       {children}
     </RoleContext.Provider>
   );
@@ -23,4 +18,5 @@ export const RoleProvider = ({ children }) => {
 export const useRole = () => {
   return useContext(RoleContext);
 };
+
 export default RoleContext;

@@ -11,7 +11,8 @@ const CodeEditorButton = () => {
   const navigate=useNavigate()
 
   return (
-    <div className="fixed bottom-8 right-8 z-50">
+    <div className="fixed bottom-23 right-8 z-50">
+
       {/* Button */}
       <button
         onClick={togglePopup}   
