@@ -8,6 +8,7 @@ import { getUserInfo } from '../hooks/getUserInfo';
 import CodeEditorButton from '../components/codeEditorButton';
 import ExercisesButton from '../components/ExercisesButton';
 import RoleContext, { useRole } from '../context/RoleContext';
+import Chatbot from './Chatbot';
 
 const HomePage = () => {
 
@@ -304,7 +305,7 @@ ReactDOM.render(
                 Start Learning →
               </Link>
             </div>
-
+<Chatbot />
             <div className="feature-card card group">
               <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors">
                 <Award className="text-blue-500" size={24} />

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
+import UserProfile from "./UserProfile/UserProfile";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   BarChart,
@@ -35,7 +36,7 @@ const ProgressTracker = () => {
     setStudyTimeChart(`${BASE_URL}/weekly-study-time-chart`);
     setSkillChart(`${BASE_URL}/skill-distribution-chart`);
   }, []);
-
+<UserProfile />
   // Sample data for course completion
   const courseCompletionData = [
     {

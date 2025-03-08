@@ -16,8 +16,9 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { Test } from './pages/test';
 import Editor from './pages/Editor';
-import ProgressTracker from "./pages/Progress";
+
 import ResumeBuilder from "./pages/Resume"; 
+import ProgressTracker from './pages/Progress'
 // import AboutPage from './pages/AboutPage';
 // import MentorshipPage from './pages/MentorshipPage';
 // import SeminarsPage from './pages/SeminarsPage';
