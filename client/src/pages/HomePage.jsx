@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code, BookOpen, Users, Award, Zap, MessageSquare, Lightbulb, Calendar } from 'lucide-react';
 import { getUserInfo } from '../hooks/getUserInfo';
 
-import CodeEditorButton from '../components/codeEditorButton';
+import CodeEditorButton from '../components/CodeEditorButton';
 import ExercisesButton from '../components/ExercisesButton';
 import RoleContext, { useRole } from '../context/RoleContext';
 import Chatbot from './Chatbot';
