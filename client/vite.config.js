@@ -14,7 +14,8 @@ export default defineConfig({
         enabled: true, // Enable service worker in dev mode
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,png,jpg,svg}"], // Cache these files
+        globPatterns: ["**/*.{js,css,html,png,jpg,svg}"],
+        maximumFileSizeToCacheInBytes: 5242880,  // Cache these files
       },
       manifest: {
         name: "CodeNexus",
